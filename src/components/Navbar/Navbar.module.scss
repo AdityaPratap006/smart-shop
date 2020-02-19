@@ -1,0 +1,77 @@
+.navbar {
+    width: 100vw;
+    max-width: 100%;
+    height: 60px;
+    position: fixed;
+    top: 0;
+
+    background: #f5f5f5;
+    box-shadow: 0 4px 8px 0 rgba(#000,0.2);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+
+    .bot-logo{
+        width:48px;
+        height: 48px;
+        margin: 0 auto 0 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cart{
+        width:48px;
+        height: 48px;
+        margin: 0 20px 0 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        // -4px -4px 20px 0 rgba(#fff, 0.1);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .count{
+            position: absolute;
+            top:22px;
+
+            span{
+                 
+                font-size:  18px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .profile{
+        width:48px;
+        height: 48px;
+        margin: 0 20px 0 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media only screen and (min-width: 1100px){
+    .navbar{
+        height: 66px;
+        .bot-logo{
+            margin: 0 auto 0 60px;
+        }
+
+        .profile{
+            margin:0 60px 0 20px;
+        }
+    }
+}

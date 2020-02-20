@@ -2,7 +2,7 @@
     width:100%;
     height: auto;
      
-    padding: 20px 0;
+    padding: 15px 0;
 
     display: flex;
     flex-direction: row;
@@ -11,10 +11,10 @@
     margin:0 auto;
     // overflow: hidden;
 
-    animation: down 0.3s ease;
+    animation: move_in_left 0.3s ease;
     
     &.inverted{
-       
+        animation: move_in_right 0.3s ease;
         flex-direction: row-reverse;
         
         // .profile-icon-div{
@@ -49,19 +49,30 @@
     }
 }
 
-@keyframes down{
+@keyframes move_in_left{
 
     0%{
-        transform: translateY(-100%);
+        transform: translateX(-120%);
     }
     100%{
-        transform: translateY(0);
+        transform: translateX(0);
+    }
+}
+
+@keyframes move_in_right{
+
+    0%{
+        transform: translateX(120%);
+    }
+    100%{
+        transform: translateX(0);
     }
 }
 
 @media only screen and (min-width: 1100px) {
     .chat-message-container {
         width: 90%;
+        padding: 20px 0;
         .profile-icon-div{
             height: 50px ;
             width:70px;

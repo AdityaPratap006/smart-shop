@@ -3,7 +3,7 @@
     height: 90vh;
     margin-top: auto;
     // border-radius: 20px;
-    overflow: hidden;
+    // overflow: hidden;
     
 
     .chat-container-inner{
@@ -14,7 +14,7 @@
         // box-shadow: inset 4px 4px 25px rgba(0,0,0,0.4),
         //             inset -10px -10px 25px rgb(255, 253, 253);
         overflow-y: scroll;
-        overflow-x: hidden;
+        // overflow-x: hidden;
         display: table;
 
         &::-webkit-scrollbar{

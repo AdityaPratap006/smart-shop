@@ -3,7 +3,7 @@
   width:100vw;
   max-width: 100%;
   scroll-behavior: smooth;
-  overflow: hidden;
+  overflow-x: hidden;
   
 }
 

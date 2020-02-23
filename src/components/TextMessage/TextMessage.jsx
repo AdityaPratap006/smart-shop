@@ -12,15 +12,15 @@ const TextMessage = ({ text, bot, index, messageList }) => {
 
     useEffect(() => {
 
-          setTimeout(()=>{
+       if(messageList.length >= 6) {
 
             TextMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
-              });
+            });
 
-          },0)
-        
+       }
+  
     },[]);
 
     return (

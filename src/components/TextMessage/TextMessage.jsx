@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { selectMessageList } from '../../redux/messages/messages.selectors';
 
 
-const TextMessage = ({ text, bot, index, messageList }) => {
+const TextMessage = ({ text, bot, messageList }) => {
 
     const TextMessageRef = useRef(null);
 

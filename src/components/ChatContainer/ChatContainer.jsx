@@ -69,7 +69,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
                  
             });
 
-        }, 200);
+        }, 0);
 
         setTimeout(() => {
 

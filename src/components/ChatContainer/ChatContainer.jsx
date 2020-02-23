@@ -111,20 +111,20 @@ const ChatContainer = ({ messageList, addMessage }) => {
 
     const lastEl = useRef(null);
 
-    // const scrollToBottom = () => {
-    //     // console.log(lastEl);
+    const scrollToBottom = () => {
+        // console.log(lastEl);
         
-    //     lastEl.current.scrollIntoView({
-    //         behavior: 'smooth',
-    //         // block: 'start',
-    //       });
-    // }
+        lastEl.current.scrollIntoView({
+            behavior: 'smooth',
+            // block: 'start',
+          });
+    }
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     // scrollToBottom();
+        scrollToBottom();
 
-    // },[messageList]);
+    },[messageList]);
 
     const chatContainerRef = useRef(null);
 

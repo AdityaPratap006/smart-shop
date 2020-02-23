@@ -17,6 +17,11 @@ const ProductListMessage = ({productBrand, productCategory, productType, addMess
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        console.log({products});
+
+    }, [products])
+
+    useEffect(() => {
 
         Axios
             .get(`https://smart-shop-api.herokuapp.com/${productType}/${productCategory}/${productBrand}/products`)
@@ -37,6 +42,7 @@ const ProductListMessage = ({productBrand, productCategory, productType, addMess
 
     useEffect(() => {
 
+         
         if(!loading){
             productListMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
@@ -48,7 +54,9 @@ const ProductListMessage = ({productBrand, productCategory, productType, addMess
 
     return !loading ? (
         <div ref={ productListMessageRef } className={styles['container']}>
-            
+            <div>
+                
+            </div>
         </div>
     ) : (
         <IsTyping/>

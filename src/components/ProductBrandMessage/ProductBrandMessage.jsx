@@ -123,7 +123,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
     popMessage: () => dispatch(popMessage()),
-    setProductBrand: type => dispatch(setProductBrand(type)),
+    setProductBrand: brand => dispatch(setProductBrand(brand)),
 
 });
 

@@ -11,11 +11,12 @@ import { selectMessageList } from '../../redux/messages/messages.selectors';
 import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
 import ProductCategoryMessage from '../ProductCategoryMessage/ProductCategoryMessage';
 import ProductBrandMessage from '../ProductBrandMessage/ProductBrandMessage';
+import ProductListMessage from '../ProductListMessage/ProductListMessage';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
 
-const renderMessages = (messageList, addMessage, lastElementRef) => {
+const renderMessages = (messageList) => {
 
     const renderChatMessageContent = (message) => {
         switch (message.type) {
@@ -33,7 +34,10 @@ const renderMessages = (messageList, addMessage, lastElementRef) => {
             
             case 'brandList':
 
-            return <ProductBrandMessage/>;
+                return <ProductBrandMessage/>;
+
+            case 'productList':
+                return <ProductListMessage/>;
 
             default:
                 return null;
@@ -76,7 +80,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
                 
             });
 
-        },400);
+        },700);
 
         
 
@@ -90,7 +94,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
             });
             
 
-        },600);
+        },1200);
 
         setTimeout(() => {
             console.log('Fetching data!');
@@ -101,7 +105,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
             });
             
 
-        },800);
+        },1400);
 
     }, [addMessage]);
 
@@ -134,7 +138,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
 
     return (
         <div ref={chatContainerRef} className={styles['chat-container']}>
-            <div className={styles['chat-container-inner']}>
+            <div className={styles['chat-container-inner']} >
                 {
                     renderMessages(messageList, addMessage, lastEl)
                 }

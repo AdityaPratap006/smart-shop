@@ -13,14 +13,14 @@ const IsTyping = () => {
 
     useEffect(() => {
 
-        setTimeout(() => {
+       
 
             elem.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
               });
 
-        }, 0);
+        
 
     }, []);
 

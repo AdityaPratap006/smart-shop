@@ -39,7 +39,7 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
 
     useEffect(() => {
 
-        console.log({productBrandMessageRef: productBrandMessageRef})
+        
 
         if(!loading){
             productBrandMessageRef.current.scrollIntoView({

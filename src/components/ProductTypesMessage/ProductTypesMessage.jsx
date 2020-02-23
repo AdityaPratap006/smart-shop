@@ -39,7 +39,7 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     useEffect(() => {
 
-        console.log({productTypeMessageRef})
+        
 
         if(!loading){
             productTypeMessageRef.current.scrollIntoView({

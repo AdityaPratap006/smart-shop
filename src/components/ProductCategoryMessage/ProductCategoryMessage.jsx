@@ -19,7 +19,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
     useEffect(() => {
 
         Axios
-            .get(`/${productType}/category`)
+            .get(`https://smart-shop-api.herokuapp.com/${productType}/category`)
             .then(axiosRes => axiosRes.data)
             .then(apiRes => apiRes.data)
             .then(recivedData => {

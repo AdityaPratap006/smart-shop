@@ -9,6 +9,7 @@ import { addMessage } from '../../redux/messages/messages.actions';
 import { selectMessageList } from '../../redux/messages/messages.selectors';
 // import Axios from 'axios';
 import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
+import ProductCategoryMessage from '../ProductCategoryMessage/ProductCategoryMessage';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
@@ -19,15 +20,15 @@ const renderMessages = (messageList, addMessage, lastElementRef) => {
         switch (message.type) {
             case 'text':
                 
-                return <TextMessage lastElementRef={lastElementRef} text={message.content} bot={message.bot}/>;
+                return <TextMessage  text={message.content} bot={message.bot}/>;
 
             case 'typeList':
                 
-                return <ProductTypesMessage lastElementRef={lastElementRef} addMessage={addMessage}/>;
+                return <ProductTypesMessage />;
 
             case 'categoryList':
 
-                return <ProductTypesMessage lastElementRef={lastElementRef} addMessage={addMessage}/>;
+                return <ProductCategoryMessage  />
 
             default:
                 return null;

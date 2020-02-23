@@ -1,46 +1,48 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './ProductTypesMessage.module.scss';
+import styles from './ProductCategoryMessage.module.scss';
 
 import Axios from 'axios';
 
 import { connect } from 'react-redux';
 import { addMessage, popMessage } from '../../redux/messages/messages.actions';
-import { setProductType } from '../../redux/products/products.actions';
+import { setProductCategory } from '../../redux/products/products.actions';
 // import { selectMessageList } from '../../redux/messages/messages.selectors';
-
+import { selectProductType } from '../../redux/products/products.selectors';
+ 
 import IsTyping from '../IsTyping/IsTyping';
-// import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
-const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
+const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProductCategory }) => {
 
     const [loading, setLoading] = useState(true);
-    const [typeList, setTypeList] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
 
     useEffect(() => {
 
         Axios
-            .get('/types')
+            .get(`/${productType}/category`)
             .then(axiosRes => axiosRes.data)
             .then(apiRes => apiRes.data)
             .then(recivedData => {
+                console.log(`${productType}: `, recivedData);
                 setLoading(false);
-                setTypeList(recivedData);
+                setCategoryList(recivedData);
 
             })
             .catch(err => {
                 console.error({ error: err });
             })
 
-    }, [addMessage, setProductType]);
+    }, [addMessage, productType]);
 
-    const productTypeMessageRef = useRef(null);
+
+    const productCategoryMessageRef = useRef(null);
 
     useEffect(() => {
 
-        console.log({productTypeMessageRef})
+        console.log({productCategoryMessageRef})
 
         if(!loading){
-            productTypeMessageRef.current.scrollIntoView({
+            productCategoryMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
               });
@@ -49,27 +51,25 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     }, [loading]);
 
+    const setCategoryAndAddBrandsMessage = (categoryString) => {
 
-    const setTypeAndAddCategoriesMessage = (typeString) => {
-        
-        setProductType(typeString.toLowerCase());
+        setProductCategory(categoryString.toLowerCase());
 
         popMessage();
- 
+
         addMessage({
             type: 'text',
             bot: false,
-            content: typeString.toUpperCase(),
+            content: categoryString.toUpperCase(),
              
         });
 
-       
         setTimeout(() => {
 
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  'Please choose a category',
+                content:  'Please choose a brand',
                  
             });
     
@@ -84,49 +84,47 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
             });
 
         }, 250);
+
     }
 
-    const renderTypeList = (typesArray) => {
 
-        return typesArray.map(type => {
+    const renderCategoryList = (categoryArray) => {
+
+        return categoryArray.map(category => {
             return (
-                <div key={type} className={styles['type']} onClick={() => { setTypeAndAddCategoriesMessage(type)}}>
-                    <span>{type}</span>
+                <div key={category} className={styles['category']} onClick={() => { setCategoryAndAddBrandsMessage(category)}}>
+                    <span>{category}</span>
                 </div>
             );
         })
     }
 
 
-
     return !loading ? (
-         
-            <div ref={productTypeMessageRef} className={styles['container']}>
-              
-                <div className={styles['types-container']} >
-                    {
-                        renderTypeList(typeList)
-                    }
-                </div>
+        <div ref={productCategoryMessageRef} className={styles['container']}>
+            <div className={styles['category-container']}>
+                {
+                    renderCategoryList(categoryList)
+                }
             </div>
-       
+        </div>
     ) : (
-            <IsTyping />
-        );
+        <IsTyping/>
+    );
 }
 
 const mapStateToProps = state => ({
-    // messageList: selectMessageList(state),
+    productType: selectProductType(state),
 });
 
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
     popMessage: () => dispatch(popMessage()),
-    setProductType: type => dispatch(setProductType(type)),
+    setProductCategory: (category) => dispatch(setProductCategory(category)),
 
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductTypesMessage);
+)(ProductCategoryMessage);

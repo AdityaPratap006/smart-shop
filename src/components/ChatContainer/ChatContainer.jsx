@@ -10,6 +10,7 @@ import { selectMessageList } from '../../redux/messages/messages.selectors';
 // import Axios from 'axios';
 import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
 import ProductCategoryMessage from '../ProductCategoryMessage/ProductCategoryMessage';
+import ProductBrandMessage from '../ProductBrandMessage/ProductBrandMessage';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
@@ -28,7 +29,11 @@ const renderMessages = (messageList, addMessage, lastElementRef) => {
 
             case 'categoryList':
 
-                return <ProductCategoryMessage  />
+                return <ProductCategoryMessage  />;
+            
+            case 'brandList':
+
+            return <ProductBrandMessage/>;
 
             default:
                 return null;

@@ -33,6 +33,8 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     }, [addMessage, setProductType]);
 
+
+
     const productTypeMessageRef = useRef(null);
 
     useEffect(() => {
@@ -69,7 +71,7 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  'Please choose a category',
+                content:  'Please choose a category.',
                  
             });
     

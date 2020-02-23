@@ -1,48 +1,48 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './ProductCategoryMessage.module.scss';
+import styles from './ProductBrandMessage.module.scss';
 
 import Axios from 'axios';
 
 import { connect } from 'react-redux';
 import { addMessage, popMessage } from '../../redux/messages/messages.actions';
-import { setProductCategory } from '../../redux/products/products.actions';
-// import { selectMessageList } from '../../redux/messages/messages.selectors';
-import { selectProductType } from '../../redux/products/products.selectors';
- 
+import { setProductBrand } from '../../redux/products/products.actions';
+import { selectProductType, selectProductCategory } from '../../redux/products/products.selectors';
+
+
 import IsTyping from '../IsTyping/IsTyping';
 
-const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProductCategory }) => {
+const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productType, productCategory}) => {
 
     const [loading, setLoading] = useState(true);
-    const [categoryList, setCategoryList] = useState([]);
+    const [brandList, setBrandList] = useState([]);
 
     useEffect(() => {
 
         Axios
-            .get(`/${productType}/category`)
+            .get(`/${productType}/${productCategory}/brands`)
             .then(axiosRes => axiosRes.data)
             .then(apiRes => apiRes.data)
             .then(recivedData => {
-                console.log(`${productType}: `, recivedData);
                 setLoading(false);
-                setCategoryList(recivedData);
-
+                setBrandList(recivedData);
+                console.log({brands: recivedData});
             })
             .catch(err => {
                 console.error({ error: err });
             })
 
-    }, [addMessage, productType]);
+    }, [addMessage, setProductBrand, productCategory, productType]);
 
 
-    const productCategoryMessageRef = useRef(null);
+
+    const productBrandMessageRef = useRef(null);
 
     useEffect(() => {
 
-        console.log({productCategoryMessageRef})
+        console.log({productBrandMessageRef: productBrandMessageRef})
 
         if(!loading){
-            productCategoryMessageRef.current.scrollIntoView({
+            productBrandMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
               });
@@ -51,16 +51,17 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
 
     }, [loading]);
 
-    const setCategoryAndAddBrandsMessage = (categoryString) => {
 
-        setProductCategory(categoryString.toLowerCase());
+    const setBrandAndAddProductListMessage = (brandString) => {
+
+        setProductBrand(brandString.toLowerCase());
 
         popMessage();
 
         addMessage({
             type: 'text',
             bot: false,
-            content: categoryString.toUpperCase(),
+            content: brandString.toUpperCase(),
              
         });
 
@@ -69,7 +70,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  'What brand do you prefer?',
+                content:  `With so many great products to choose from, you'll be spoiled for choice ;)`,
                  
             });
     
@@ -78,53 +79,56 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
         setTimeout(()=>{
 
             addMessage({
-                type: 'brandList',
+                type: 'productList',
                 bot: true,
                 
             });
 
         }, 250);
 
+
     }
 
 
-    const renderCategoryList = (categoryArray) => {
+    const renderBrandList = (brandArray) => {
 
-        return categoryArray.map(category => {
+        return brandArray.map(brand => {
             return (
-                <div key={category} className={styles['category']} onClick={() => { setCategoryAndAddBrandsMessage(category)}}>
-                    <span>{category}</span>
+                <div key={brand} className={styles['brand']} onClick={() => { setBrandAndAddProductListMessage(brand)}}>
+                    <span>{brand}</span>
                 </div>
             );
         })
     }
 
-
     return !loading ? (
-        <div ref={productCategoryMessageRef} className={styles['container']}>
-            <div className={styles['category-container']}>
+        <div ref={productBrandMessageRef} className={styles['container']}>
+            <div className={styles['brand-container']}>
                 {
-                    renderCategoryList(categoryList)
+                     renderBrandList(brandList)
                 }
             </div>
         </div>
-    ) : (
+    ): (
         <IsTyping/>
     );
 }
 
+
 const mapStateToProps = state => ({
     productType: selectProductType(state),
+    productCategory: selectProductCategory(state),
 });
 
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
     popMessage: () => dispatch(popMessage()),
-    setProductCategory: (category) => dispatch(setProductCategory(category)),
+    setProductBrand: type => dispatch(setProductBrand(type)),
 
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductCategoryMessage);
+)(ProductBrandMessage);
+

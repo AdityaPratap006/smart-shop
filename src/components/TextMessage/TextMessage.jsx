@@ -6,21 +6,17 @@ import { connect } from 'react-redux';
 import { selectMessageList } from '../../redux/messages/messages.selectors';
 
 
-const TextMessage = ({ text, bot, messageList }) => {
+const TextMessage = ({ text, bot }) => {
 
     const TextMessageRef = useRef(null);
 
     useEffect(() => {
-
-       if(messageList.length >= 6) {
-
+    
             TextMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
             });
 
-       }
-  
     },[]);
 
     return (

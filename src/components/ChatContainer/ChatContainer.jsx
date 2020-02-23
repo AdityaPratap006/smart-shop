@@ -72,7 +72,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: ` I'm EVE, your shopping assistant`,
+                content: ` I'm EVE, your personal shopping assistant!`,
                 
             });
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styles from './ChatContainer.module.scss';
 
 import ChatMessageContainer from '../ChatMessageContainer/ChatMessageContainer';
@@ -7,15 +7,27 @@ import TextMessage from '../TextMessage/TextMessage';
 import { connect } from 'react-redux';
 import { addMessage } from '../../redux/messages/messages.actions';
 import { selectMessageList } from '../../redux/messages/messages.selectors';
+// import Axios from 'axios';
+import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
+// import IsTyping from '../IsTyping/IsTyping';
+// import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
 
-const renderMessages = (messageList) => {
+const renderMessages = (messageList, addMessage, lastElementRef) => {
 
     const renderChatMessageContent = (message) => {
         switch (message.type) {
             case 'text':
                 
-                return <TextMessage text={message.content} bot={message.bot}/>;
+                return <TextMessage lastElementRef={lastElementRef} text={message.content} bot={message.bot}/>;
+
+            case 'typeList':
+                
+                return <ProductTypesMessage lastElementRef={lastElementRef} addMessage={addMessage}/>;
+
+            case 'categoryList':
+
+                return <ProductTypesMessage lastElementRef={lastElementRef} addMessage={addMessage}/>;
 
             default:
                 return null;
@@ -26,7 +38,7 @@ const renderMessages = (messageList) => {
 
         
         return (
-            <ChatMessageContainer key={index} bot={message.bot}>
+            <ChatMessageContainer key={index} bot={message.bot} lastElementRef={lastElementRef}>
                 {
                    renderChatMessageContent(message)
                 }
@@ -43,7 +55,8 @@ const ChatContainer = ({ messageList, addMessage }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: `Hello Sir!` 
+                content: `Hello Sir!`,
+                 
             });
 
         }, 200);
@@ -53,34 +66,75 @@ const ChatContainer = ({ messageList, addMessage }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: ` I'm EVE, your shopping assistant`
+                content: ` I'm EVE, your shopping assistant`,
+                
             });
 
         },400);
 
-        setTimeout(() => {
+        
 
+        setTimeout(() => {
+             
+            addMessage({
+                type: 'text',
+                bot: true,
+                content: ` What would you like to purchase today?`,
+                
+            });
             
 
         },600);
 
+        setTimeout(() => {
+            console.log('Fetching data!');
+            addMessage({
+                type: 'typeList',
+                bot: true,
+               
+            });
+            
+
+        },800);
+
     }, [addMessage]);
 
+    const lastEl = useRef(null);
+
+    // const scrollToBottom = () => {
+    //     // console.log(lastEl);
+        
+    //     lastEl.current.scrollIntoView({
+    //         behavior: 'smooth',
+    //         // block: 'start',
+    //       });
+    // }
+
+    // useEffect(() => {
+
+    //     // scrollToBottom();
+
+    // },[messageList]);
+
+    const chatContainerRef = useRef(null);
+
+    // useEffect(() => {
+
+    //     console.log({chatContainerRef});
+
+    //     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight - chatContainerRef.current.clientHeight;
+
+    // }, [messageList]);
+
     return (
-        <div className={styles['chat-container']}>
+        <div ref={chatContainerRef} className={styles['chat-container']}>
             <div className={styles['chat-container-inner']}>
-                {/* <ChatMessageContainer bot>
-                    <TextMessage text={'Hello Sir!'} bot />
-                </ChatMessageContainer>
-                <ChatMessageContainer bot>
-                    <TextMessage text={'How Can I help you?'} bot />
-                </ChatMessageContainer>
-                <ChatMessageContainer>
-                    <TextMessage text={'Electronics'} />
-                </ChatMessageContainer> */}
                 {
-                    renderMessages(messageList)
+                    renderMessages(messageList, addMessage, lastEl)
                 }
+            </div>
+            <div style={{ width:'0px', height: '0px' }}
+                ref={lastEl}>
             </div>
         </div>
     )

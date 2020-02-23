@@ -1,0 +1,68 @@
+
+.loader{
+
+    width: 24%;
+    padding:5px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    
+    font-size: 0.7rem;
+     
+
+    .container{
+
+        width:100px;
+        height: 30px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .circle{
+            width:8px;
+            height: 8px;
+            background-color: #aaa;
+            border-radius: 50%;
+            
+            &:nth-child(odd){
+                animation: up 0.6s linear infinite;
+            }
+
+            &:nth-child(even){
+                animation: down 0.6s linear infinite;
+            }
+        }
+
+        @keyframes up {
+            0%{
+                transform: translateY(-50%);
+            }
+
+            50%{
+                transform: translateY(50%);
+            }
+
+            100%{
+                transform: translateY(-50%);
+            }
+        }
+
+        @keyframes down {
+            0%{
+                transform: translateY(50%);
+            }
+
+            50%{
+                transform: translateY(-50%);
+            }
+
+            100%{
+                transform: translateY(50%);
+            }
+        }
+        
+    }
+
+
+}

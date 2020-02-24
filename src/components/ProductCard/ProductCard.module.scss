@@ -38,4 +38,25 @@
             text-transform: capitalize;
         }
     }
+
+    .footer{
+        margin-top: auto;
+        width:90%;
+        height: 40px;
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .see-details-btn{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px 0 rgba($color: #000000, $alpha: 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
 }

@@ -15,7 +15,8 @@ import IsTyping from '../IsTyping/IsTyping';
 
 import Slider from "react-slick";
 import ProductCard from '../ProductCard/ProductCard';
-
+import ProductModal from '../ProductModal/ProductModal';
+import BackDrop from '../BackDrop/BackDrop';
 
 const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -87,10 +88,15 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
 
     //   autoplaySpeed: 5000,
     //   cssEase: "linear"
-      };
+    };
+
+
     
+    const [modal, setModal ] = useState(false);
+    const [ modalProduct, setModalProduct ] = useState({});
 
     return !loading ? (
+        <>
         <div ref={productListMessageRef} className={styles['container']}>
             <div className={styles['products-slider-container']}>
                 <Slider {...sliderSettings} className={styles['slider']}>
@@ -98,7 +104,7 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
                         return (
                             <div key={product}   className={styles['product-slide']}>
                                 <div className={styles['product-card']}  >
-                                    <ProductCard product={product}/>
+                                    <ProductCard product={product} setModal={setModal} setModalProduct={setModalProduct}/>
                                 </div>
                             </div>
                         );
@@ -106,6 +112,15 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
                 </Slider>
             </div>
         </div>
+        {
+                modal ? (
+                    <>
+                        <ProductModal product={modalProduct} setModal={setModal} setModalProduct={setModalProduct}/>
+                        <BackDrop/>
+                    </>
+                ) : null
+        }
+        </>
     ) : (
             <IsTyping />
         );

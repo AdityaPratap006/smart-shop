@@ -14,8 +14,30 @@ import { selectProductType, selectProductCategory, selectProductBrand, selectPro
 import IsTyping from '../IsTyping/IsTyping';
 
 import Slider from "react-slick";
+import ProductCard from '../ProductCard/ProductCard';
 
 
+const NextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style,  display: "block", background: "rgba(0,0,0,0.4)" , borderRadius: '500px'}}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  const PrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block", background: "rgba(0,0,0,0.4)", borderRadius: '500px' }}
+        onClick={onClick}
+      />
+    );
+  }
 
 const ProductListMessage = ({ productBrand, productCategory, productType, addMessage, popMessage, setProductList, productList }) => {
 
@@ -54,26 +76,29 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
     }, [loading]);
 
     const sliderSettings = {
-        dots: true,
-          infinite: false,
-          slidesToShow: (window.innerWidth< 1100) ? 1 : 2,
-          slidesToScroll: 1,
-          autoplay: false,
-          speed: 500,
-        //   autoplaySpeed: 5000,
-        //   cssEase: "linear"
+        dots: false,
+        infinite: false,
+        slidesToShow: window.innerWidth < 1100 ? 1 : 2,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 500,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+
+    //   autoplaySpeed: 5000,
+    //   cssEase: "linear"
       };
     
 
     return !loading ? (
         <div ref={productListMessageRef} className={styles['container']}>
             <div className={styles['products-slider-container']}>
-                <Slider {...sliderSettings}>
+                <Slider {...sliderSettings} className={styles['slider']}>
                     {productList.map(function (product, index) {
                         return (
-                            <div key={product._id}   className={styles['product-slide']}>
-                                <div className={styles['product-card']}>
-
+                            <div key={product}   className={styles['product-slide']}>
+                                <div className={styles['product-card']}  >
+                                    <ProductCard product={product}/>
                                 </div>
                             </div>
                         );

@@ -3,7 +3,32 @@ import styles from './ProductModal.module.scss';
 
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
+const renderDescription = (description) => {
+
+    const keyArray = Object.keys(description);
+
+    return (
+        <ul>
+            {
+                keyArray.map((key, index) => {
+                    const descKey = description[key].key;
+                    const descValue = description[key].value;
+                   
+                    return (
+                        <li key={key}>
+                            <span className={styles['key']}> {descKey} </span>
+                            <span className={styles['value']}> {descValue} </span>
+                        </li>
+                    );
+                })
+            }
+        </ul>
+    );
+}
+
 const ProductModal = ({ setModal, setModalProduct, product }) => {
+
+   
 
 
     return (
@@ -19,7 +44,7 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
             <div className={styles['body']}>
                 <div className={styles['name-section']}>
                     <div className={styles['left']}>
-                        
+
                         <p className={styles['name']}>{product.name}</p>
                     </div>
                     <div className={styles['right']}>
@@ -27,7 +52,17 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
                     </div>
                 </div>
                 <div className={styles['description']}>
+                    <span>Features:</span>
 
+                    {
+                        renderDescription(JSON.parse(product.description))
+                    }
+
+                </div>
+            </div>
+            <div className={styles['footer']}>
+                <div className={styles['add-cart-btn']}>
+                    ADD TO CART
                 </div>
             </div>
         </div>

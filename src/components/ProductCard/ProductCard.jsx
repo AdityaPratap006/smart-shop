@@ -15,8 +15,8 @@ const ProductCard = ({product, setModal, setModalProduct }) => {
         <div className={styles['card']}>
             <img alt={product.name} src={product.image} className={styles['product-image']}/>
             <div className={styles['title']}>
-                <p className={styles['name']}> {`${product.name}`} </p>
-                <p className={styles['price']}> {`Rs. ${product.price}`} </p>
+                <span className={styles['name']}> {`${product.name}`} </span>
+                <span className={styles['price']}> {`Rs. ${product.price}`} </span>
             </div>
             <div className={styles['footer']}>
                 <div className={styles['see-details-btn']} onClick={() => { setModal(true); setModalProduct(product); }}>

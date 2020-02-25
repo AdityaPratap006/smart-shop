@@ -19,7 +19,7 @@
     justify-content: flex-start;
     align-items: center;
 
-    animation: rise 0.5s linear;
+    animation: rise 0.36s linear;
 
     @keyframes rise {
         0%{
@@ -35,8 +35,14 @@
         }
 
         50%{
+            width: 25vw;
+            height: 50vh;
+            background-color: #000;
+        }
+
+        80%{
             width: 40vw;
-            height: 60vh;
+            height: 75vh;
             background-color: #000;
         }
 
@@ -79,11 +85,11 @@
 
     .body{
         width:96%;
-        height: 54%;
+        height: 44%;
         
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-around;
         align-items: center;
 
         .name-section{
@@ -91,12 +97,12 @@
             height: 25%;
             display: flex;
             flex-direction: row;
-            justify-content: flex-start;
+            justify-content: space-around;
             align-items: flex-start;
 
             .left{
                 height: 100%;
-                width: 40%;
+                width: 30%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -118,7 +124,7 @@
            .right{
                 margin:auto 0;
                 height: 80%;
-                width: 60%;
+                width: 40%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -139,7 +145,68 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            align-items: center;
+            align-items: flex-start;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar{
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb{
+                background-color: #aaa;
+                border-radius: 500px;
+            }
+
+            span{
+                margin-left: 24px;
+            }
+
+            ul{
+                 width: 80%;
+                    margin-left: 18px;
+                    padding: 0;
+
+                li{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid #aaa;
+                    padding: 2px;
+                    text-transform: uppercase;
+
+                    .key{
+                      width: 40%;
+
+                    }
+
+                    .value{
+                        width: 60%;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer{
+        width:96%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items:  center;
+
+        .add-cart-btn{
+            padding: 12px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+            border-radius: 6px;
+            color: #fff;
+            background: #00B4DB;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            cursor: pointer;
+            transition: 0.15s linear;
+            &:hover{
+                transform: scale(1.04);
+            }
         }
     }
 }

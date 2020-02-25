@@ -42,21 +42,26 @@
     .footer{
         margin-top: auto;
         width:90%;
-        height: 40px;
+        height: 20%;
        
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
 
         .see-details-btn{
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+            padding: 8px 6px;
+            border-radius: 6px;
+            font-size: 0.8rem;
             box-shadow: 0 4px 8px 0 rgba($color: #000000, $alpha: 0.4);
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            color: #fff;
+            background: #00B4DB;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            
         }
     }
 }

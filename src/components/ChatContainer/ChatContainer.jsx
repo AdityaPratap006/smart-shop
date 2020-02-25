@@ -14,8 +14,7 @@ import ProductBrandMessage from '../ProductBrandMessage/ProductBrandMessage';
 import ProductListMessage from '../ProductListMessage/ProductListMessage';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
-
-
+ 
 const renderMessages = (messageList) => {
 
     const renderChatMessageContent = (message) => {
@@ -49,6 +48,7 @@ const renderMessages = (messageList) => {
         
         return (
             <ChatMessageContainer key={index} bot={message.bot}  >
+                
                 {
                    renderChatMessageContent(message)
                 }
@@ -139,6 +139,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
     return (
         <div ref={chatContainerRef} className={styles['chat-container']}>
             <div className={styles['chat-container-inner']}>
+                
                 {
                     renderMessages(messageList, addMessage, lastEl)
                 }

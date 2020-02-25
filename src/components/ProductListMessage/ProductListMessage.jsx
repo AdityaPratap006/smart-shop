@@ -124,7 +124,7 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
                         productList
                         .filter(product => {
                             return (
-                                product.name.toLowerCase().includes(search) || product.description.toLowerCase().includes(search)
+                                product.name.toLowerCase().includes(search)
                             );
                         })
                         .map(function (product, index) {

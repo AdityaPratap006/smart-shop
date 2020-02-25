@@ -15,6 +15,7 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     const [loading, setLoading] = useState(true);
     const [typeList, setTypeList] = useState([]);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
 
@@ -39,50 +40,50 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     useEffect(() => {
 
-        
 
-        if(!loading){
+
+        if (!loading) {
             productTypeMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
-              });
+            });
         }
-       
+
 
     }, [loading]);
 
 
     const setTypeAndAddCategoriesMessage = (typeString) => {
-        
+
         setProductType(typeString.toLowerCase());
 
         popMessage();
- 
+
         addMessage({
             type: 'text',
             bot: false,
             content: typeString.toUpperCase(),
-             
+
         });
 
-       
+
         setTimeout(() => {
 
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  'Please choose a category.',
-                 
+                content: 'Please choose a category.',
+
             });
-    
+
         }, 200)
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             addMessage({
                 type: 'categoryList',
                 bot: true,
-                
+
             });
 
         }, 250);
@@ -92,7 +93,7 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
         return typesArray.map(type => {
             return (
-                <div key={type} className={styles['type']} onClick={() => { setTypeAndAddCategoriesMessage(type)}}>
+                <div key={type} className={styles['type']} onClick={() => { setTypeAndAddCategoriesMessage(type) }}>
                     <span>{type}</span>
                 </div>
             );
@@ -100,18 +101,31 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
     }
 
 
+    const handleSearch = (text) => {
+
+        setSearch(text.toLowerCase());
+    }
+
 
     return !loading ? (
-         
-            <div ref={productTypeMessageRef} className={styles['container']}>
-              
-                <div className={styles['types-container']} >
-                    {
-                        renderTypeList(typeList)
-                    }
-                </div>
+
+        <div ref={productTypeMessageRef} className={styles['container']}>
+            <div className={styles['search-div']}>
+                <input
+                    name="typeSearch"
+                    type='text'
+                    className={styles['search-box']}
+                    placeholder='Search Types...'
+                    onChange={(e) => { handleSearch(e.target.value) }}
+                />
             </div>
-       
+            <div className={styles['types-container']} >
+                {
+                    renderTypeList(typeList.filter(type => type.toLowerCase().includes(search)))
+                }
+            </div>
+        </div>
+
     ) : (
             <IsTyping />
         );

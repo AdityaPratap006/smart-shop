@@ -15,6 +15,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
 
     const [loading, setLoading] = useState(true);
     const [categoryList, setCategoryList] = useState([]);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
 
@@ -99,12 +100,26 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
         })
     }
 
+    const handleSearch = (text) => {
+
+        setSearch(text.toLowerCase());
+    }
+
 
     return !loading ? (
         <div ref={productCategoryMessageRef} className={styles['container']}>
+             <div className={styles['search-div']}>
+                <input
+                    name="categorySearch"
+                    type='text'
+                    className={styles['search-box']}
+                    placeholder='Search Categories...'
+                    onChange={(e) => { handleSearch(e.target.value) }}
+                />
+            </div>
             <div className={styles['category-container']}>
                 {
-                    renderCategoryList(categoryList)
+                    renderCategoryList(categoryList.filter(category => category.toLowerCase().includes(search)))
                 }
             </div>
         </div>

@@ -11,10 +11,11 @@ import { selectProductType, selectProductCategory } from '../../redux/products/p
 
 import IsTyping from '../IsTyping/IsTyping';
 
-const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productType, productCategory}) => {
+const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productType, productCategory }) => {
 
     const [loading, setLoading] = useState(true);
     const [brandList, setBrandList] = useState([]);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
 
@@ -25,7 +26,7 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
             .then(recivedData => {
                 setLoading(false);
                 setBrandList(recivedData);
-                console.log({brands: recivedData});
+                console.log({ brands: recivedData });
             })
             .catch(err => {
                 console.error({ error: err });
@@ -39,15 +40,15 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
 
     useEffect(() => {
 
-        
 
-        if(!loading){
+
+        if (!loading) {
             productBrandMessageRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start',
-              });
+            });
         }
-       
+
 
     }, [loading]);
 
@@ -62,7 +63,7 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
             type: 'text',
             bot: false,
             content: brandString.toUpperCase(),
-             
+
         });
 
         setTimeout(() => {
@@ -70,18 +71,18 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  `With so many great products to choose from, you'll be spoiled for choice ;)`,
-                 
+                content: `With so many great products to choose from, you'll be spoiled for choice ;)`,
+
             });
-    
+
         }, 200)
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             addMessage({
                 type: 'productList',
                 bot: true,
-                
+
             });
 
         }, 250);
@@ -94,24 +95,38 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
 
         return brandArray.map(brand => {
             return (
-                <div key={brand} className={styles['brand']} onClick={() => { setBrandAndAddProductListMessage(brand)}}>
+                <div key={brand} className={styles['brand']} onClick={() => { setBrandAndAddProductListMessage(brand) }}>
                     <span>{brand}</span>
                 </div>
             );
         })
     }
 
+    const handleSearch = (text) => {
+
+        setSearch(text.toLowerCase());
+    }
+
     return !loading ? (
         <div ref={productBrandMessageRef} className={styles['container']}>
+            <div className={styles['search-div']}>
+                <input
+                    name="brandSearch"
+                    type='text'
+                    className={styles['search-box']}
+                    placeholder='Search Brands...'
+                    onChange={(e) => { handleSearch(e.target.value) }}
+                />
+            </div>
             <div className={styles['brand-container']}>
                 {
-                     renderBrandList(brandList)
+                    renderBrandList(brandList.filter(brand => (brand.toLowerCase().includes(search))))
                 }
             </div>
         </div>
-    ): (
-        <IsTyping/>
-    );
+    ) : (
+            <IsTyping />
+        );
 }
 
 

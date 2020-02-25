@@ -43,6 +43,8 @@ const NextArrow = (props) => {
 const ProductListMessage = ({ productBrand, productCategory, productType, addMessage, popMessage, setProductList, productList }) => {
 
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState('');
+
    
     useEffect(() => {
 
@@ -95,20 +97,44 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
     const [modal, setModal ] = useState(false);
     const [ modalProduct, setModalProduct ] = useState({});
 
+    const handleSearch = (text) => {
+
+        setSearch(text.toLowerCase());
+    }
+
+
+
     return !loading ? (
         <>
         <div ref={productListMessageRef} className={styles['container']}>
+            <div className={styles['search-div']}>
+                    <input
+                        name="productSearch"
+                        type='text'
+                        className={styles['search-box']}
+                        placeholder={`Search ${productCategory}...`}
+                        onChange={(e) => { handleSearch(e.target.value) }}
+                    />
+                </div>
             <div className={styles['products-slider-container']}>
                 <Slider {...sliderSettings} className={styles['slider']}>
-                    {productList.map(function (product, index) {
-                        return (
-                            <div key={product}   className={styles['product-slide']}>
-                                <div className={styles['product-card']}  >
-                                    <ProductCard product={product} setModal={setModal} setModalProduct={setModalProduct}/>
+                    {
+                        productList
+                        .filter(product => {
+                            return (
+                                product.name.toLowerCase().includes(search) || product.description.toLowerCase().includes(search)
+                            );
+                        })
+                        .map(function (product, index) {
+                            return (
+                                <div key={product}   className={styles['product-slide']}>
+                                    <div className={styles['product-card']}  >
+                                        <ProductCard product={product} setModal={setModal} setModalProduct={setModalProduct}/>
+                                    </div>
                                 </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })
+                    }
                 </Slider>
             </div>
         </div>

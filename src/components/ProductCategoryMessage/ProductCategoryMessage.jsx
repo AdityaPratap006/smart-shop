@@ -126,6 +126,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
             </div>
             <div className={styles['footer']}>
                 <GoBackButton goBackFrom={'category'} />
+                <GoBackButton restart />
             </div>
         </div>
     ) : (

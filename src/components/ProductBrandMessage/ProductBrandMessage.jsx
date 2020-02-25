@@ -126,6 +126,7 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
             </div>
             <div className={styles['footer']}>
                 <GoBackButton goBackFrom={'brand'} />
+                <GoBackButton restart />
             </div>
         </div>
     ) : (

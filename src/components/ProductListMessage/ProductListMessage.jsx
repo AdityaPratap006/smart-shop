@@ -141,6 +141,7 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
             </div>
             <div className={styles['footer']}>
                 <GoBackButton goBackFrom={'product'} />
+                <GoBackButton restart />
             </div>
         </div>
         {

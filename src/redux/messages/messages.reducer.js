@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, POP_MESSAGE } from './messages.types';
+import { ADD_MESSAGE, POP_MESSAGE, RESTART } from './messages.types';
 
 const INITIAL_STATE = {
     messageList: [],
@@ -18,8 +18,38 @@ const messagesReducer = ( state = INITIAL_STATE, action ) => {
         case POP_MESSAGE:
             return {
                 ...state,
-                messageList: [ ...state.messageList.slice(0,-1)]
-            }
+                messageList: [ ...state.messageList.slice(0,-1)],
+            };
+        
+        case RESTART:
+            return {
+                ...state,
+                messageList: [
+                    {
+                        type: 'text',
+                        bot: true,
+                        content: `Hello Sir!`,
+                         
+                    },
+                    {
+                        type: 'text',
+                        bot: true,
+                        content: `I'm EVE, your personal shopping assistant!`,
+                        
+                    },
+                    {
+                        type: 'text',
+                        bot: true,
+                        content: ` What would you like to purchase today?`,
+                        
+                    },
+                    {
+                        type: 'typeList',
+                        bot: true,
+                       
+                    },
+                ],
+            };
 
         default:
             return state;

@@ -10,6 +10,7 @@ import { selectProductType, selectProductCategory } from '../../redux/products/p
 
 
 import IsTyping from '../IsTyping/IsTyping';
+import GoBackButton from '../GoBackButton/GoBackButton';
 
 const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productType, productCategory }) => {
 
@@ -122,6 +123,9 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
                 {
                     renderBrandList(brandList.filter(brand => (brand.toLowerCase().includes(search))))
                 }
+            </div>
+            <div className={styles['footer']}>
+                <GoBackButton goBackFrom={'brand'} />
             </div>
         </div>
     ) : (

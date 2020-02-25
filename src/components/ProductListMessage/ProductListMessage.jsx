@@ -17,6 +17,8 @@ import Slider from "react-slick";
 import ProductCard from '../ProductCard/ProductCard';
 import ProductModal from '../ProductModal/ProductModal';
 import BackDrop from '../BackDrop/BackDrop';
+import GoBackButton from '../GoBackButton/GoBackButton';
+
 
 const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -136,6 +138,9 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
                         })
                     }
                 </Slider>
+            </div>
+            <div className={styles['footer']}>
+                <GoBackButton goBackFrom={'product'} />
             </div>
         </div>
         {

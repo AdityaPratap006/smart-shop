@@ -10,6 +10,8 @@ import { setProductCategory } from '../../redux/products/products.actions';
 import { selectProductType } from '../../redux/products/products.selectors';
  
 import IsTyping from '../IsTyping/IsTyping';
+import GoBackButton from '../GoBackButton/GoBackButton';
+
 
 const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProductCategory }) => {
 
@@ -121,6 +123,9 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
                 {
                     renderCategoryList(categoryList.filter(category => category.toLowerCase().includes(search)))
                 }
+            </div>
+            <div className={styles['footer']}>
+                <GoBackButton goBackFrom={'category'} />
             </div>
         </div>
     ) : (

@@ -1,0 +1,29 @@
+.active-button, .inactive-button{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.active-button{
+
+    color: #000;
+    background: #f5f5f5;
+}
+
+.inactive-button{
+
+    color: rgb(108, 120, 179);
+    background: #ddd;
+    border: 1px solid #aaa;
+    transition: 0.3s ease-in;
+
+    &:hover{
+        cursor: pointer;
+        background: #f5f5f5;
+        box-shadow: 0 4px 8px 0 rgba($color: #000000, $alpha: 0.4);
+    }
+}

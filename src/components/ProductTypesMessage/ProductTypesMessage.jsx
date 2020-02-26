@@ -115,7 +115,7 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
                     name="typeSearch"
                     type='text'
                     className={styles['search-box']}
-                    placeholder='Search Types...'
+                    placeholder='Search...'
                     onChange={(e) => { handleSearch(e.target.value) }}
                 />
             </div>

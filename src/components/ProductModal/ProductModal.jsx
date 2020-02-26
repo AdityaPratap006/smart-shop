@@ -61,9 +61,18 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
                 </div>
             </div>
             <div className={styles['footer']}>
-                <div className={styles['add-cart-btn']}>
-                    ADD TO CART
-                </div>
+               {
+                   product.count > 0 
+                   ? (
+                    <div className={styles['add-cart-btn']}>
+                        ADD TO CART
+                    </div>
+                   ): (
+                       <div className={styles['not-avialable']}>
+                         {`OUT OF STOCK :(`}
+                       </div>
+                   )
+               }
             </div>
         </div>
     )

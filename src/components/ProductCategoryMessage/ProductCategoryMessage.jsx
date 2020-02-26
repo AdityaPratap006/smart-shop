@@ -72,7 +72,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
             addMessage({
                 type: 'text',
                 bot: true,
-                content:  'What brand do you prefer?',
+                content:  'What do you prefer?',
                  
             });
     
@@ -115,7 +115,7 @@ const ProductCategoryMessage = ({ addMessage, popMessage, productType, setProduc
                     name="categorySearch"
                     type='text'
                     className={styles['search-box']}
-                    placeholder='Search Categories...'
+                    placeholder='Search...'
                     onChange={(e) => { handleSearch(e.target.value) }}
                 />
             </div>

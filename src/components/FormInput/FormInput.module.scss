@@ -1,0 +1,26 @@
+.group{
+    width:100%;
+    height: 5rem;
+     
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .form-input{
+        width: 100%;
+        height: 2rem;
+        font-size: 1rem;
+        padding: 4px 6px;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        background: #fff;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+        transition: 0.15s ease-in;
+    
+        &:focus{
+            border: 4px solid #4c8bf5;
+        }
+
+    }
+}

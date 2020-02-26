@@ -114,7 +114,7 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
                         name="productSearch"
                         type='text'
                         className={styles['search-box']}
-                        placeholder={`Search ${productCategory}...`}
+                        placeholder={`Search...`}
                         onChange={(e) => { handleSearch(e.target.value) }}
                     />
                 </div>

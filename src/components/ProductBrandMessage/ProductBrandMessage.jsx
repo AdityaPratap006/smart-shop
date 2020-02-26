@@ -115,7 +115,7 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
                     name="brandSearch"
                     type='text'
                     className={styles['search-box']}
-                    placeholder='Search Brands...'
+                    placeholder='Search...'
                     onChange={(e) => { handleSearch(e.target.value) }}
                 />
             </div>

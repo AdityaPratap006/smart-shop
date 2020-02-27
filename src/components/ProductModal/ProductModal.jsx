@@ -68,7 +68,7 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
                         ADD TO CART
                     </div>
                    ): (
-                       <div className={styles['not-avialable']}>
+                       <div className={styles['not-available']}>
                          {`OUT OF STOCK :(`}
                        </div>
                    )

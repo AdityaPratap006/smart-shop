@@ -1,6 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+// import Axios from 'axios';
+
 const firebaseConfig = {
     apiKey: "AIzaSyBnPFvSd5of2qoeqSSUm7BFQFOSmOBTFkU",
     authDomain: "smart-shop-71fee.firebaseapp.com",
@@ -12,12 +14,28 @@ const firebaseConfig = {
     measurementId: "G-EZV7P5T300"
 };
 
+export const createUserProfile =  async (userAuthObject , additionalData) => {
+
+    if(!userAuthObject){
+        return;
+    }
+
+    //if user doesn't exist in db, create account
+
+}
+
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider;
-googleAuthProvider.setCustomParameters({ prompt: 'select_account'});
-export const signInWithGoogle = () => auth.signInWithGoogle(googleAuthProvider);
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account'});
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+facebookProvider.setCustomParameters({ display: 'popup'});
+export const signInWithFacebook = () => auth.signInWithPopup(facebookProvider);
+
+export const signInWithEmailAndPassword = (email, password) => auth.signInWithEmailAndPassword(email,password) 
 
 export default firebase;

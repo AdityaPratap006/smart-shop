@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, POP_MESSAGE, RESTART } from "./messages.types";
+import { ADD_MESSAGE, POP_MESSAGE, RESTART, CLEAR_CHAT } from "./messages.types";
 
 export const addMessage = (message) => {
 
@@ -14,4 +14,8 @@ export const popMessage = () => {
 
 export const restartChat = () => {
     return {type: RESTART};
+}
+
+export const clearChat = () => {
+    return {type: CLEAR_CHAT};
 }

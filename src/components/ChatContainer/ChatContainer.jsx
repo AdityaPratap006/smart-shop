@@ -5,7 +5,7 @@ import ChatMessageContainer from '../ChatMessageContainer/ChatMessageContainer';
 import TextMessage from '../TextMessage/TextMessage';
 
 import { connect } from 'react-redux';
-import { addMessage } from '../../redux/messages/messages.actions';
+import { addMessage, clearChat } from '../../redux/messages/messages.actions';
 import { selectMessageList } from '../../redux/messages/messages.selectors';
 // import Axios from 'axios';
 import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
@@ -57,17 +57,21 @@ const renderMessages = (messageList) => {
     })
 }
 
-const ChatContainer = ({ messageList, addMessage }) => {
+const ChatContainer = ({ messageList, addMessage, clearChat }) => {
 
     useEffect(() => {
         // console.log('loading messages');
-     
-        addMessage({
-            type: 'text',
-            bot: true,
-            content: `Hello Sir!`,
 
-        });
+        clearChat();
+     
+        setTimeout(() => {
+            addMessage({
+                type: 'text',
+                bot: true,
+                content: `Hello Sir!`,
+    
+            });
+        },120);
 
         setTimeout(()=>{
             addMessage({
@@ -95,7 +99,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
             });
         },1200)
 
-    }, [addMessage]);
+    }, [addMessage, clearChat]);
 
     const lastEl = useRef(null);
 
@@ -146,6 +150,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
+    clearChat: () => dispatch(clearChat()),
    
 })
 

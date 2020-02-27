@@ -1,4 +1,4 @@
-import { ADD_MESSAGE, POP_MESSAGE, RESTART } from './messages.types';
+import { ADD_MESSAGE, POP_MESSAGE, RESTART, CLEAR_CHAT } from './messages.types';
 
 const INITIAL_STATE = {
     messageList: [],
@@ -50,7 +50,11 @@ const messagesReducer = ( state = INITIAL_STATE, action ) => {
                     },
                 ],
             };
-
+        case CLEAR_CHAT:
+            return {
+                ...state,
+                messageList: [],
+            };
         default:
             return state;
     }

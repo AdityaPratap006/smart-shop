@@ -58,6 +58,11 @@ const renderMessages = (messageList) => {
     })
 }
 
+const capitalizeName = (name) => {
+
+    return name[0].toUpperCase() + name.substr(1, name.length - 1);
+}
+
 const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
 
     useEffect(() => {
@@ -69,7 +74,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: `Hello ${currentUser.name.split(' ')[0]}!`,
+                content: `Hello ${capitalizeName(currentUser.name.split(' ')[0])}!`,
     
             });
         },120);

@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { addMessage, popMessage, restartChat, clearChat } from '../../redux/messages/messages.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
+const capitalizeName = (name) => {
+
+    return name[0].toUpperCase() + name.substr(1, name.length - 1);
+}
 
 const GoBackButton = ({goBackFrom, addMessage, popMessage, restart, currentUser, clearChat}) => {
 
@@ -17,7 +21,7 @@ const GoBackButton = ({goBackFrom, addMessage, popMessage, restart, currentUser,
                 addMessage({
                     type: 'text',
                     bot: true,
-                    content: `Hello ${currentUser.name.split(' ')[0]}!`,
+                    content: `Hello ${capitalizeName(currentUser.name.split(' ')[0])}!`,
         
                 });
             },120);

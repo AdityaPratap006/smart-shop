@@ -26,6 +26,39 @@ export const createUserProfile =  async (userAuthObject , additionalData) => {
             userId: userAuthObject.uid
         })
         .then(res => res.data)
+        .then(data =>({
+                data: data,
+                additionalData: additionalData,
+            })
+        )
+        .then(({data, additionalData}) => {
+
+            let userDBData = null;
+
+            if(!data.exists){
+                Axios
+                .post('https://smart-shop-api.herokuapp.com/createUser', {
+                  userId: userAuthObject.uid,
+                  name: userAuthObject.displayName ||(additionalData && additionalData.name),
+                  email: userAuthObject.email,
+                  profilePicUrl: userAuthObject.photoURL ||(additionalData && additionalData.profilePic)
+                })
+                .then(res2 => res2.data)
+                .then(recievedData => {
+                   
+                  userDBData = recievedData;
+                  console.log({ createdUser: recievedData });
+                })
+                .catch(err => {
+                  
+                  console.log({ errorCreatingUser: err });
+                })
+            }else{
+                userDBData = data.data[0]
+            }
+
+            return userDBData;
+        })
     
 }
 

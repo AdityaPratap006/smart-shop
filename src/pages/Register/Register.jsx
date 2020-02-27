@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
-import styles from './Login.module.scss';
+import styles from './Register.module.scss';
 
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import AuthPageLink from '../../components/AuthPageLink/AuthPageLink';
 import FormInput from '../../components/FormInput/FormInput';
-import OAuthButton from '../../components/OAuthButton/OAuthButton';
+// import OAuthButton from '../../components/OAuthButton/OAuthButton';
+import AvatarPicker from '../../components/AvatarPicker/AvatarPicker';
 
-import { signInWithEmailAndPassword } from '../../firebase/firebase.utils';
+import { auth, createUserProfile } from '../../firebase/firebase.utils';
 
+// import Axios from 'axios';
 
+import { setCurrentUser } from '../../redux/user/user.actions';
 
-const Login = () => {
+const Register = ({ setCurrentUser }) => {
 
     const history = useHistory();
     const { location: { pathname } } = history;
 
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [profilePic, setProfilePic] = useState('https://image.flaticon.com/icons/svg/145/145848.svg');
     const [processing, setProcessing] = useState(false);
     const [errors, setErrors] = useState({});
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (event) => {
 
-        if (email === '' || password === '') {
+        event.preventDefault();
+        if (email === '' || password === '' || name === '') {
 
             setErrors({
+                name: name === '',
                 email: email === '',
                 password: password === '',
             })
@@ -35,63 +41,56 @@ const Login = () => {
             return;
         }
 
-       
-
         setProcessing(true);
         setErrors({});
 
-        signInWithEmailAndPassword(email, password)
-            .then(res => {
-                console.log({ success: res });
-                setProcessing(false);
-            })
-            .catch(err => {
-                console.log({ error: err });
+        try {
+            const { user } = await  auth.createUserWithEmailAndPassword(email, password);
 
-                if (err.code === 'auth/user-not-found') {
-                    setErrors({
-                        userNotFound: true,
-                    })
-                }
+            await createUserProfile(user, { name: name, profilePic: profilePic });
+    
+            setName('');
+            setEmail('');
+            setPassword('');
+            setErrors({});
+            setProcessing(false);
 
-                if (err.code === 'auth/wrong-password') {
-                    setErrors({
-                        wrongCredentials: true,
-                    })
-                }
+        } catch (error) {
+            setProcessing(false);
+            console.log({errorSigningUpUser: error})
+        }     
 
-                if(err.code === 'auth/invalid-email') {
-                    setErrors({
-                       invalidEmail: true,
-                    })
-                }
-
-                setProcessing(false);
-            })
     }
 
     return (
-        <div className={styles['login-page']}>
-            <div className={styles['login-form-card']}>
+        <div className={styles['register-page']}>
+            <div className={styles['register-form-card']}>
                 <div className={styles['header']}>
                     <AuthPageLink isActive={pathname === '/sign-in'} text={`SIGN IN`} to={`/sign-in`} />
                     <AuthPageLink isActive={pathname === '/sign-up'} text={`SIGN UP`} to={`/sign-up`} />
                 </div>
                 <div className={styles['body']}>
                     <p>
-                        Sign in to your Account
+                        Create your Account
                     </p>
-                    <div className={styles['oauth-button-grp']}>
 
-                        <OAuthButton authProvider="google" />
-                        <OAuthButton authProvider="facebook" />
-                    </div>
-                    <div className={styles['divider']}>
-                        <hr />
-                        OR
-                        <hr />
-                    </div>
                     <form className={styles['form']} onSubmit={handleSubmit}>
+                        <FormInput
+                            label="Name"
+                            type="name"
+                            name="name"
+                            error={errors.name}
+                            value={name}
+                            handleChange={(e) => {
+
+                                setName(e.target.value);
+                                setErrors({
+                                    ...errors,
+                                    name: false
+                                })
+                            }}
+                            required
+                        />
                         <FormInput
                             label="Email"
                             type="email"
@@ -124,6 +123,7 @@ const Login = () => {
                             }}
                             required
                         />
+                        <AvatarPicker profilePic={profilePic} setProfilePic={setProfilePic}/>
                         {
                             errors.userNotFound ? (
                                 <div className={styles['error']}>
@@ -148,11 +148,11 @@ const Login = () => {
                         {
                             !processing ? (
                                 <div className={styles['submit-btn']} onClick={handleSubmit}>
-                                    <span>SIGN IN</span>
+                                    <span>SIGN UP</span>
                                 </div>
                             ) : (
-                                <div className={styles['processing']}> </div>
-                            )
+                                    <div className={styles['processing']}> </div>
+                                )
                         }
                     </form>
 
@@ -167,10 +167,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+    setCurrentUser: user => dispatch( setCurrentUser(user) ),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Login);
+)(Register);

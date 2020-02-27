@@ -3,19 +3,21 @@ import './App.css';
 
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import Navbar from './components/Navbar/Navbar';
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-
 import { auth, createUserProfile } from './firebase/firebase.utils';
 
 import { connect } from 'react-redux';
 import { selectCurrentUser, selectIsLoadingUser } from './redux/user/user.selectors';
 import { setCurrentUser } from './redux/user/user.actions';
 
-import Axios from 'axios';
+// import Axios from 'axios';
 import { createStructuredSelector } from 'reselect';
+
+
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
+import Register from './pages/Register/Register';
 
 class App extends React.Component {
 
@@ -28,33 +30,10 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(userAuth => {
 
       if (userAuth) {
-        createUserProfile(userAuth)
+        createUserProfile(userAuth, {})
           .then(data => {
             console.log({ userData: data });
-
-            if (!data.exists) {
-              Axios
-                .post('https://smart-shop-api.herokuapp.com/createUser', {
-                  userId: userAuth.uid,
-                  name: userAuth.displayName,
-                  email: userAuth.email,
-                  profilePicUrl: userAuth.photoURL
-                })
-                .then(res2 => res2.data)
-                .then(recievedData => {
-                  setCurrentUser(recievedData);
-                  console.log({ createdUser: recievedData });
-                })
-                .catch(err => {
-                  setCurrentUser(null);
-                  console.log({ errorCreatingUser: err });
-                })
-            } else {
-
-              // console.log({data: data.data[0]})
-              setCurrentUser(data.data[0]);
-
-            }
+            setCurrentUser(data);
           })
           .catch(err => {
             setCurrentUser(null);
@@ -83,14 +62,24 @@ class App extends React.Component {
         <Switch>
           <Route
             exact
+            path="/"
+            render={() => (
+              isLoadingUser
+                ? <Loader />
+                : <Redirect to="/home" />
+
+            )}
+          />
+          <Route
+            exact
             path="/home"
             render={() => (
               !isLoadingUser
-              ? (
-                currentUser
-                ? <Home />
-                : <Redirect to="/sign-in" />
-              ): <Redirect to="/" />
+                ? (
+                  currentUser
+                    ? <Home />
+                    : <Redirect to="/sign-in" />
+                ) : <Redirect to="/" />
             )}
           />
           <Route
@@ -98,25 +87,28 @@ class App extends React.Component {
             path="/sign-in"
             render={() => (
               !isLoadingUser
-              ? (
-                currentUser
-                ? <Redirect to="/home" />
-                : <Login />
-              ): <Redirect to="/" />
-                
+                ? (
+                  currentUser
+                    ? <Redirect to="/home" />
+                    : <Login />
+                ) : <Redirect to="/" />
+
             )}
           />
-           <Route
+          <Route
             exact
-            path="/"
+            path="/sign-up"
             render={() => (
-              isLoadingUser
-              ? <Loader/>
-              : <Redirect to="/home" />
-                
+              !isLoadingUser
+                ? (
+                  currentUser
+                    ? <Redirect to="/home" />
+                    : <Register />
+                ) : <Redirect to="/" />
+
             )}
           />
-         
+
         </Switch>
       </div>
     );

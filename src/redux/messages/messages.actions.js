@@ -13,7 +13,10 @@ export const popMessage = () => {
 }
 
 export const restartChat = () => {
-    return {type: RESTART};
+    return {
+        type: RESTART,
+         
+    };
 }
 
 export const clearChat = () => {

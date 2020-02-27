@@ -2,15 +2,52 @@ import React from 'react';
 import styles from './GoBackButton.module.scss';
 
 import { connect } from 'react-redux';
-import { addMessage, popMessage, restartChat } from '../../redux/messages/messages.actions';
+import { addMessage, popMessage, restartChat, clearChat } from '../../redux/messages/messages.actions';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 
-const GoBackButton = ({goBackFrom, addMessage, popMessage, restart, restartChat}) => {
+const GoBackButton = ({goBackFrom, addMessage, popMessage, restart, currentUser, clearChat}) => {
 
     const goBack = () => {
 
         if(restart){
-            restartChat();
+            clearChat();
+     
+            setTimeout(() => {
+                addMessage({
+                    type: 'text',
+                    bot: true,
+                    content: `Hello ${currentUser.name.split(' ')[0]}!`,
+        
+                });
+            },120);
+    
+            setTimeout(()=>{
+                addMessage({
+                    type: 'text',
+                    bot: true,
+                    content: ` I'm EVE, your personal shopping assistant!`,
+        
+                });
+            },400);
+            
+            setTimeout(() => {
+                addMessage({
+                    type: 'text',
+                    bot: true,
+                    content: ` What would you like to purchase today?`,
+        
+                });
+            },800);
+            
+            setTimeout(()=> {
+                addMessage({
+                    type: 'typeList',
+                    bot: true,
+        
+                });
+            },1200);
+
             return;
         }
 
@@ -44,12 +81,15 @@ const GoBackButton = ({goBackFrom, addMessage, popMessage, restart, restartChat}
     );
 }
 
-const mapStateToProps = null;
+const mapStateToProps = state => ({
+    currentUser: selectCurrentUser(state),
+});
 
 const mapDispatchToProps = dispatch => ({
     addMessage: (message) => dispatch(addMessage(message)),
     popMessage: () => dispatch(popMessage()),
     restartChat: () => dispatch(restartChat()),
+    clearChat: () => dispatch(clearChat()),
 })
 
 export default connect(

@@ -12,6 +12,7 @@ import ProductTypesMessage from '../ProductTypesMessage/ProductTypesMessage';
 import ProductCategoryMessage from '../ProductCategoryMessage/ProductCategoryMessage';
 import ProductBrandMessage from '../ProductBrandMessage/ProductBrandMessage';
 import ProductListMessage from '../ProductListMessage/ProductListMessage';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
 
@@ -57,7 +58,7 @@ const renderMessages = (messageList) => {
     })
 }
 
-const ChatContainer = ({ messageList, addMessage, clearChat }) => {
+const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
 
     useEffect(() => {
         // console.log('loading messages');
@@ -68,7 +69,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: `Hello Sir!`,
+                content: `Hello ${currentUser.name.split(' ')[0]}!`,
     
             });
         },120);
@@ -97,7 +98,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat }) => {
                 bot: true,
     
             });
-        },1200)
+        },1200);
 
     }, [addMessage, clearChat]);
 
@@ -131,7 +132,6 @@ const ChatContainer = ({ messageList, addMessage, clearChat }) => {
     return (
         <div ref={chatContainerRef} className={styles['chat-container']}>
             <div className={styles['chat-container-inner']}>
-
                 {
                     renderMessages(messageList, addMessage, lastEl)
                 }
@@ -145,6 +145,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat }) => {
 
 const mapStateToProps = state => ({
     messageList: selectMessageList(state),
+    currentUser: selectCurrentUser(state),
 
 });
 

@@ -5,12 +5,15 @@ import { ReactComponent as BotLogo } from '../../assets/bot.svg';
 import { ReactComponent as Profile } from '../../assets/man.svg';
 import CartIcon from '../CartIcon/CartIcon';
 
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+import { auth } from '../../firebase/firebase.utils';
+
+const Navbar = ({ currentUser }) => {
 
 
-
-const Navbar = () => {
-
-   
 
     return (
         <div className={styles['navbar']}>
@@ -22,16 +25,34 @@ const Navbar = () => {
                     }}
                 />
             </div>
-            <CartIcon/>
-            <div className={styles['profile']}>
-                <Profile style={{
-                        width: '100%',
-                        height: '100%',
-                    }}
-                />
-            </div>
+            {
+                currentUser ? (
+                    <>
+                        <CartIcon />
+                        <div className={styles['profile']} onClick={() => { console.log('sign out'); auth.signOut()}}>
+                            <Profile style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                            />
+                        </div>
+                    </>
+                ): null
+            }
+
         </div>
     )
 }
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);

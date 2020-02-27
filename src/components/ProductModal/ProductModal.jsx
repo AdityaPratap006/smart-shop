@@ -52,7 +52,7 @@ const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
                         <p className={styles['name']}>{product.name}</p>
                     </div>
                     <div className={styles['right']}>
-                        <p className={styles['price']}>Rs. {product.price}</p>
+                        <p className={styles['price']}>&#8377; {product.price}</p>
                     </div>
                 </div>
                 <div className={styles['description']}>

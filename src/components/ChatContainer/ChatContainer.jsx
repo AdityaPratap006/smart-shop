@@ -14,29 +14,29 @@ import ProductBrandMessage from '../ProductBrandMessage/ProductBrandMessage';
 import ProductListMessage from '../ProductListMessage/ProductListMessage';
 // import IsTyping from '../IsTyping/IsTyping';
 // import ScrollThrough from '../ScrollThrough/ScrollThrough';
- 
+
 const renderMessages = (messageList) => {
 
     const renderChatMessageContent = (message) => {
         switch (message.type) {
             case 'text':
-                
-                return <TextMessage  text={message.content} bot={message.bot}/>;
+
+                return <TextMessage text={message.content} bot={message.bot} />;
 
             case 'typeList':
-                
+
                 return <ProductTypesMessage />;
 
             case 'categoryList':
 
-                return <ProductCategoryMessage  />;
-            
+                return <ProductCategoryMessage />;
+
             case 'brandList':
 
-                return <ProductBrandMessage/>;
+                return <ProductBrandMessage />;
 
             case 'productList':
-                return <ProductListMessage/>;
+                return <ProductListMessage />;
 
             default:
                 return null;
@@ -45,12 +45,12 @@ const renderMessages = (messageList) => {
 
     return messageList.map((message, index) => {
 
-        
+
         return (
             <ChatMessageContainer key={index} bot={message.bot}  >
-                
+
                 {
-                   renderChatMessageContent(message)
+                    renderChatMessageContent(message)
                 }
             </ChatMessageContainer>
         );
@@ -60,52 +60,40 @@ const renderMessages = (messageList) => {
 const ChatContainer = ({ messageList, addMessage }) => {
 
     useEffect(() => {
-        setTimeout(() => {
+        // console.log('loading messages');
+     
+        addMessage({
+            type: 'text',
+            bot: true,
+            content: `Hello Sir!`,
 
-            addMessage({
-                type: 'text',
-                bot: true,
-                content: `Hello Sir!`,
-                 
-            });
+        });
 
-        }, 0);
-
-        setTimeout(() => {
-
+        setTimeout(()=>{
             addMessage({
                 type: 'text',
                 bot: true,
                 content: ` I'm EVE, your personal shopping assistant!`,
-                
+    
             });
-
-        },700);
-
+        },400);
         
-
         setTimeout(() => {
-             
             addMessage({
                 type: 'text',
                 bot: true,
                 content: ` What would you like to purchase today?`,
-                
+    
             });
-            
-
-        },1200);
-
-        setTimeout(() => {
-             
+        },800);
+        
+        setTimeout(()=> {
             addMessage({
                 type: 'typeList',
                 bot: true,
-               
+    
             });
-            
-
-        },1400);
+        },1200)
 
     }, [addMessage]);
 
@@ -113,7 +101,7 @@ const ChatContainer = ({ messageList, addMessage }) => {
 
     // const scrollToBottom = () => {
     //     // console.log(lastEl);
-        
+
     //     lastEl.current.scrollIntoView({
     //         behavior: 'smooth',
     //         // block: 'start',
@@ -139,12 +127,12 @@ const ChatContainer = ({ messageList, addMessage }) => {
     return (
         <div ref={chatContainerRef} className={styles['chat-container']}>
             <div className={styles['chat-container-inner']}>
-                
+
                 {
                     renderMessages(messageList, addMessage, lastEl)
                 }
             </div>
-            <div style={{ width:'0px', height: '0px' }}
+            <div style={{ width: '0px', height: '0px' }}
                 ref={lastEl}>
             </div>
         </div>
@@ -158,6 +146,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addMessage: message => dispatch(addMessage(message)),
+   
 })
 
 export default connect(

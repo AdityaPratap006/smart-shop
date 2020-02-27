@@ -1,0 +1,38 @@
+.cart-item {
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    height: 80px;
+    margin-bottom: 15px;
+    
+     
+     
+    img {
+        max-width: 30%;
+        max-height: 90%;
+    }
+
+    .item-details{
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-around;
+        padding: 10px;
+
+        .name{
+            font-size: 0.75rem;
+            width:80%;
+            text-transform: capitalize;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 450;
+        }
+
+        .price{
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+    }
+}

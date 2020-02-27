@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-// import Axios from 'axios';
+import Axios from 'axios';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBnPFvSd5of2qoeqSSUm7BFQFOSmOBTFkU",
@@ -20,8 +20,13 @@ export const createUserProfile =  async (userAuthObject , additionalData) => {
         return;
     }
 
-    //if user doesn't exist in db, create account
-
+    
+    return Axios
+        .post('https://smart-shop-api.herokuapp.com/user', {
+            userId: userAuthObject.uid
+        })
+        .then(res => res.data)
+    
 }
 
 firebase.initializeApp(firebaseConfig);

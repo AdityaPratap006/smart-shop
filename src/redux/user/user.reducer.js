@@ -2,6 +2,7 @@ import { SET_CURRENT_USER } from './user.types';
 
 const INITIAL_STATE = {
     currentUser: null,
+    loadingUser: true,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 currentUser: payload,
+                loadingUser: false,
             };
         default:
             return state;

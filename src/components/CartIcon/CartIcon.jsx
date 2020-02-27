@@ -21,7 +21,7 @@ const CartIcon = ({ cartItems }) => {
     },0);
 
     return (
-        <div className={styles['cart']} onMouseEnter={toggleCart} onMouseLeave={toggleCart}>
+        <div className={styles['cart']}   onMouseEnter={toggleCart} onMouseLeave={toggleCart}>
         <CartSvg style={{
                 width: '90%',
                 height: '75%',

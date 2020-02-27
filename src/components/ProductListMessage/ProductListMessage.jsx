@@ -83,7 +83,7 @@ const ProductListMessage = ({ productBrand, productCategory, productType, addMes
     const sliderSettings = {
         dots: false,
         infinite: false,
-        slidesToShow: window.innerWidth < 1100 ? 1 : 2,
+        slidesToShow: window.innerWidth < 750 ? 1 : 2,
         slidesToScroll: 1,
         autoplay: false,
         speed: 500,

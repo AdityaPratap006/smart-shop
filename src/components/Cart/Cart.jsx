@@ -5,19 +5,21 @@ import { connect } from 'react-redux'
 
 
 const Cart = () => {
+    
+
     return (
         <div className={styles['cart']}>
-            
+
         </div>
     )
 }
 
 const mapStateToProps = (state) => ({
-    
+
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    
+
 })
 
 export default connect(

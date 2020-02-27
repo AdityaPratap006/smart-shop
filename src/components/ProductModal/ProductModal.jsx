@@ -3,6 +3,10 @@ import styles from './ProductModal.module.scss';
 
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
+import { connect } from 'react-redux';
+import { addCartItem } from '../../redux/cart/cart.actions';
+
+
 const renderDescription = (description) => {
 
     const keyArray = Object.keys(description);
@@ -26,7 +30,7 @@ const renderDescription = (description) => {
     );
 }
 
-const ProductModal = ({ setModal, setModalProduct, product }) => {
+const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
 
    
 
@@ -64,7 +68,10 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
                {
                    product.count > 0 
                    ? (
-                    <div className={styles['add-cart-btn']}>
+                    <div className={styles['add-cart-btn']} onClick={() => {
+                        addCartItem(product);
+                        setModal(false);
+                    }}>
                         ADD TO CART
                     </div>
                    ): (
@@ -78,4 +85,16 @@ const ProductModal = ({ setModal, setModalProduct, product }) => {
     )
 }
 
-export default ProductModal;
+const mapStateToProps = (state) => ({
+    
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    addCartItem: product => dispatch(addCartItem(product)),
+});
+ 
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProductModal);

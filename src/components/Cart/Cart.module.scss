@@ -1,3 +1,37 @@
 .cart{
-    
+
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 200px;
+    height: 270px;
+    background: #fff;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.4);
+    border-radius: 20px;
+    border: 2px solid #aaa;
+    z-index: 35;
+    cursor: auto;
+    animation: appear 0.3s linear;
+
+}
+
+@keyframes appear{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+
+@media only screen  and ( min-width: 1100px ){
+    .cart{
+        width: 250px;
+        height: 300px;
+        left: 0%;
+    }
 }

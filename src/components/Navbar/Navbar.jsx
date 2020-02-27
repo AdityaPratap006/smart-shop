@@ -30,11 +30,7 @@ const Navbar = ({ currentUser }) => {
                     <>
                         <CartIcon />
                         <div className={styles['profile']} onClick={() => { console.log('sign out'); auth.signOut()}}>
-                            <Profile style={{
-                                width: '100%',
-                                height: '100%',
-                            }}
-                            />
+                            <img alt={'profile'} src={currentUser.profilePicUrl} />
                         </div>
                     </>
                 ): null

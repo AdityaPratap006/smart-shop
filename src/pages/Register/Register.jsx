@@ -55,9 +55,33 @@ const Register = ({ setCurrentUser }) => {
             setErrors({});
             setProcessing(false);
 
-        } catch (error) {
+        } catch (err) {
             setProcessing(false);
-            console.log({errorSigningUpUser: error})
+            console.log({errorSigningUpUser: err});
+
+            if(err.code === "auth/weak-password"){
+                setErrors({
+                    weakPassword: true
+                })
+            }
+
+            if (err.code === 'auth/user-not-found') {
+                setErrors({
+                    userNotFound: true,
+                })
+            }
+
+            if (err.code === 'auth/wrong-password') {
+                setErrors({
+                    wrongCredentials: true,
+                })
+            }
+
+            if(err.code === 'auth/invalid-email') {
+                setErrors({
+                   invalidEmail: true,
+                })
+            }
         }     
 
     }
@@ -142,6 +166,13 @@ const Register = ({ setCurrentUser }) => {
                             errors.invalidEmail ? (
                                 <div className={styles['error']}>
                                     <p>Invalid Email</p>
+                                </div>
+                            ) : null
+                        }
+                        {
+                            errors.weakPassword ? (
+                                <div className={styles['error']}>
+                                    <p>Password should contain atleast 6 characters</p>
                                 </div>
                             ) : null
                         }

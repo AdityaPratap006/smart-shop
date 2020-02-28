@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import styles from './Login.module.scss';
 
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
-import AuthPageLink from '../../components/AuthPageLink/AuthPageLink';
-import FormInput from '../../components/FormInput/FormInput';
+// import AuthPageLink from '../../components/AuthPageLink/AuthPageLink';
+// import FormInput from '../../components/FormInput/FormInput';
 import OAuthButton from '../../components/OAuthButton/OAuthButton';
 
-import { signInWithEmailAndPassword } from '../../firebase/firebase.utils';
+// import { signInWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 
 
@@ -20,7 +20,7 @@ const Login = () => {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
     // const [processing, setProcessing] = useState(false);
-    // const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({});
 
     // const handleSubmit = (event) => {
     //     event.preventDefault();
@@ -83,8 +83,17 @@ const Login = () => {
                     </p>
                     <div className={styles['oauth-button-grp']}>
 
-                        <OAuthButton authProvider="google" />
-                        <OAuthButton authProvider="facebook" />
+                        <OAuthButton authProvider="google"  setError={setErrors}/>
+                        <OAuthButton authProvider="facebook"  setError={setErrors}/>
+                    </div>
+                    <div className={styles['error-container']}>
+                        {
+                            errors.accountExists ? (
+                                <div className={styles['error']}>
+                                    <p>Account already exists! Please Sign In with Google</p>
+                                </div>
+                            ) : null
+                        }
                     </div>
                     {/* <div className={styles['divider']}>
                         <hr />

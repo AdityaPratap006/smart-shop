@@ -23,12 +23,15 @@ const renderLogo = (provider) => {
 }
 
 
-const signInMethod = ( provider ) => {
+const signInMethod = ( provider, setError ) => {
 
     switch (provider) {
         case 'google':
             signInWithGoogle()
-            .then(user => console.log('google', user))
+            .then(user => {
+                console.log('google', user);
+                setError({});
+            })
             .catch(err => {
                 console.log({error: err});
                  
@@ -38,11 +41,16 @@ const signInMethod = ( provider ) => {
             
         case 'facebook':
             signInWithFacebook()
-            .then(user => console.log('facebook', user))
+            .then(user => {
+                console.log('facebook', user);
+                setError({});
+            })
             .catch(err => {
                 console.log({error: err});
                 if(err.code === 'auth/account-exists-with-different-credential'){
-
+                    setError({
+                        accountExists: true,
+                    })
                 }
             });
 
@@ -55,12 +63,12 @@ const signInMethod = ( provider ) => {
     return null;
 }
 
-const OAuthButton = ({ authProvider, }) => {
+const OAuthButton = ({ authProvider, setError }) => {
 
     
 
     return (
-        <div className={styles['oauth-btn']} onClick={() => {signInMethod(authProvider)}}>
+        <div className={styles['oauth-btn']} onClick={() => {signInMethod(authProvider, setError)}}>
             {
                 renderLogo(authProvider)
             }

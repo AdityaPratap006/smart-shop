@@ -14,51 +14,62 @@ const firebaseConfig = {
     measurementId: "G-EZV7P5T300"
 };
 
-export const createUserProfile =  async (userAuthObject , additionalData) => {
+export const createUserProfile =  async (userAuthObject , additionalData, caller) => {
 
     if(!userAuthObject){
         return;
     }
 
-    
+
     return Axios
-        .post('https://smart-shop-api.herokuapp.com/user', {
-            userId: userAuthObject.uid
-        })
-        .then(res => res.data)
-        .then(data =>({
-                data: data,
-                additionalData: additionalData,
+            .post('https://smart-shop-api.herokuapp.com/createUser', {
+            userId: userAuthObject.uid,
+            name: userAuthObject.displayName ||(additionalData && additionalData.name),
+            email: userAuthObject.email,
+            profilePicUrl: userAuthObject.photoURL ||(additionalData && additionalData.profilePic)
             })
-        )
-        .then(({data, additionalData}) => {
+            .then(res2 => res2.data)
+            .then(recievedData => {
+            
+                // userDBData = recievedData;
+                // console.log({ createdUser: recievedData , });
+                // console.log({caller: caller});
+                return recievedData;
+            
+            })
+            // .catch(err => {
+            
+            // console.log({ errorCreatingUser: err });
+            // console.log({caller: caller});
+            
+            
+            // })
 
-            let userDBData = null;
+    
+    // return Axios
+    //     .post('https://smart-shop-api.herokuapp.com/user', {
+    //         userId: userAuthObject.uid
+    //     })
+    //     .then(res => res.data)
+    //     .then(data =>({
+    //             data: data,
+    //             additionalData: additionalData,
+    //         })
+    //     )
+    //     .then(({data, additionalData}) => {
 
-            if(!data.exists){
-                Axios
-                .post('https://smart-shop-api.herokuapp.com/createUser', {
-                  userId: userAuthObject.uid,
-                  name: userAuthObject.displayName ||(additionalData && additionalData.name),
-                  email: userAuthObject.email,
-                  profilePicUrl: userAuthObject.photoURL ||(additionalData && additionalData.profilePic)
-                })
-                .then(res2 => res2.data)
-                .then(recievedData => {
-                   
-                  userDBData = recievedData;
-                  console.log({ createdUser: recievedData });
-                })
-                .catch(err => {
-                  
-                  console.log({ errorCreatingUser: err });
-                })
-            }else{
-                userDBData = data.data[0]
-            }
+    //         let userDBData = null;
 
-            return userDBData;
-        })
+    //         console.log({exists: data.exists, caller: caller,});
+
+    //         if(!data.exists){
+    //           //add here
+    //         }else{
+    //             userDBData = data.data[0]
+    //         }
+
+    //         return userDBData;
+    //     })
     
 }
 
@@ -74,6 +85,6 @@ const facebookProvider = new firebase.auth.FacebookAuthProvider();
 facebookProvider.setCustomParameters({ display: 'popup'});
 export const signInWithFacebook = () => auth.signInWithPopup(facebookProvider);
 
-export const signInWithEmailAndPassword = (email, password) => auth.signInWithEmailAndPassword(email,password) 
+// export const signInWithEmailAndPassword = (email, password) => auth.signInWithEmailAndPassword(email,password) 
 
 export default firebase;

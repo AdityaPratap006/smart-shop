@@ -14,69 +14,69 @@ import { signInWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 const Login = () => {
 
-    const history = useHistory();
-    const { location: { pathname } } = history;
+    // const history = useHistory();
+    // const { location: { pathname } } = history;
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [processing, setProcessing] = useState(false);
-    const [errors, setErrors] = useState({});
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const [processing, setProcessing] = useState(false);
+    // const [errors, setErrors] = useState({});
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
 
-        if (email === '' || password === '') {
+    //     if (email === '' || password === '') {
 
-            setErrors({
-                email: email === '',
-                password: password === '',
-            })
+    //         setErrors({
+    //             email: email === '',
+    //             password: password === '',
+    //         })
 
-            return;
-        }
+    //         return;
+    //     }
 
        
 
-        setProcessing(true);
-        setErrors({});
+    //     setProcessing(true);
+    //     setErrors({});
 
-        signInWithEmailAndPassword(email, password)
-            .then(res => {
-                console.log({ success: res });
-                setProcessing(false);
-            })
-            .catch(err => {
-                console.log({ error: err });
+    //     signInWithEmailAndPassword(email, password)
+    //         .then(res => {
+    //             console.log({ success: res });
+    //             setProcessing(false);
+    //         })
+    //         .catch(err => {
+    //             console.log({ error: err });
 
-                if (err.code === 'auth/user-not-found') {
-                    setErrors({
-                        userNotFound: true,
-                    })
-                }
+    //             if (err.code === 'auth/user-not-found') {
+    //                 setErrors({
+    //                     userNotFound: true,
+    //                 })
+    //             }
 
-                if (err.code === 'auth/wrong-password') {
-                    setErrors({
-                        wrongCredentials: true,
-                    })
-                }
+    //             if (err.code === 'auth/wrong-password') {
+    //                 setErrors({
+    //                     wrongCredentials: true,
+    //                 })
+    //             }
 
-                if(err.code === 'auth/invalid-email') {
-                    setErrors({
-                       invalidEmail: true,
-                    })
-                }
+    //             if(err.code === 'auth/invalid-email') {
+    //                 setErrors({
+    //                    invalidEmail: true,
+    //                 })
+    //             }
 
-                setProcessing(false);
-            })
-    }
+    //             setProcessing(false);
+    //         })
+    // }
 
     return (
         <div className={styles['login-page']}>
             <div className={styles['login-form-card']}>
-                <div className={styles['header']}>
+                {/* <div className={styles['header']}>
                     <AuthPageLink isActive={pathname === '/sign-in'} text={`SIGN IN`} to={`/sign-in`} />
                     <AuthPageLink isActive={pathname === '/sign-up'} text={`SIGN UP`} to={`/sign-up`} />
-                </div>
+                </div> */}
                 <div className={styles['body']}>
                     <p>
                         Sign in to your Account
@@ -86,7 +86,7 @@ const Login = () => {
                         <OAuthButton authProvider="google" />
                         <OAuthButton authProvider="facebook" />
                     </div>
-                    <div className={styles['divider']}>
+                    {/* <div className={styles['divider']}>
                         <hr />
                         OR
                         <hr />
@@ -154,7 +154,7 @@ const Login = () => {
                                 <div className={styles['processing']}> </div>
                             )
                         }
-                    </form>
+                    </form> */}
 
                 </div>
             </div>

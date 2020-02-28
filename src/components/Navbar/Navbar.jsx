@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Navbar.module.scss';
 
 import { ReactComponent as BotLogo } from '../../assets/bot.svg';
-import { ReactComponent as Profile } from '../../assets/man.svg';
+// import { ReactComponent as Profile } from '../../assets/man.svg';
 import CartIcon from '../CartIcon/CartIcon';
 
 import { connect } from 'react-redux';

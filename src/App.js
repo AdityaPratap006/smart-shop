@@ -18,6 +18,7 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
 import Register from './pages/Register/Register';
+import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
 
 class App extends React.Component {
 
@@ -26,19 +27,17 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    const { setCurrentUser } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(userAuth => {
+    const { setCurrentUser, registerUserName, registerUserProfilePic } = this.props;
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
+     
       if (userAuth) {
-        createUserProfile(userAuth, {})
-          .then(data => {
-            console.log({ userData: data });
-            setCurrentUser(data);
-          })
-          .catch(err => {
-            setCurrentUser(null);
-            console.log({ error: err })
-          })
+
+        console.log('Auth state changed!! ', userAuth);
+        
+        const userData = await createUserProfile(userAuth, { name: registerUserName, profilePic: registerUserProfilePic }, 'app');
+        
+        setCurrentUser(userData.data);
       }
       else {
         setCurrentUser(null);
@@ -95,20 +94,6 @@ class App extends React.Component {
 
             )}
           />
-          <Route
-            exact
-            path="/sign-up"
-            render={() => (
-              !isLoadingUser
-                ? (
-                  currentUser
-                    ? <Redirect to="/home" />
-                    : <Register />
-                ) : <Redirect to="/" />
-
-            )}
-          />
-
         </Switch>
       </div>
     );
@@ -117,11 +102,14 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  isLoadingUser: selectIsLoadingUser
+  isLoadingUser: selectIsLoadingUser,
+  registerUserName: selectRegisterUserName,
+  registerUserProfilePic: selectRegisterUserProfilePic,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
+  
 
 });
 

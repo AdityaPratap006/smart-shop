@@ -14,16 +14,18 @@ import { auth, createUserProfile } from '../../firebase/firebase.utils';
 // import Axios from 'axios';
 
 import { setCurrentUser } from '../../redux/user/user.actions';
+import { setName, setProfilePic } from '../../redux/registerUser/registerUser.actions';
+import { selectRegisterUserName, selectRegisterUserProfilePic } from '../../redux/registerUser/registerUser.selectors';
 
-const Register = ({ setCurrentUser }) => {
+const Register = ({ setCurrentUser, setName, setProfilePic, name, profilePic }) => {
 
     const history = useHistory();
     const { location: { pathname } } = history;
 
-    const [name, setName] = useState('');
+    // const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [profilePic, setProfilePic] = useState('https://image.flaticon.com/icons/svg/145/145848.svg');
+    // const [profilePic, setProfilePic] = useState('https://image.flaticon.com/icons/svg/145/145848.svg');
     const [processing, setProcessing] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -47,13 +49,17 @@ const Register = ({ setCurrentUser }) => {
         try {
             const { user } = await  auth.createUserWithEmailAndPassword(email, password);
 
-            await createUserProfile(user, { name: name, profilePic: profilePic });
+           
+            await createUserProfile(user, { name: name, profilePic: profilePic }, 'register');
     
             setName('');
             setEmail('');
             setPassword('');
             setErrors({});
             setProcessing(false);
+            // setCurrentUser(userData);
+
+            
 
         } catch (err) {
             setProcessing(false);
@@ -194,11 +200,14 @@ const Register = ({ setCurrentUser }) => {
 }
 
 const mapStateToProps = state => ({
-
+    name: selectRegisterUserName(state),
+    profilePic: selectRegisterUserProfilePic(state),
 });
 
 const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch( setCurrentUser(user) ),
+    setName: name => dispatch(setName(name)),
+    setProfilePic: url => dispatch(setProfilePic(url)),
 });
 
 export default connect(

@@ -9,7 +9,7 @@ import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 const CartIcon = ({ cartItems }) => {
 
-    const [ cartOpen , setCartOpen ] = useState(false);
+    const [cartOpen, setCartOpen] = useState(false);
 
     const toggleCart = () => {
 
@@ -18,24 +18,28 @@ const CartIcon = ({ cartItems }) => {
 
     const totalCount = cartItems.reduce((accumulator, item) => {
         return accumulator + item.cartQuantity
-    },0);
+    }, 0);
 
     return (
-        <div className={styles['cart']}   onMouseEnter={toggleCart} onMouseLeave={toggleCart}>
-        <CartSvg style={{
-                width: '90%',
-                height: '75%',
-            }}
-        />
-        <div className={styles['count']}>
-            <span>{totalCount}</span>
-        </div>
-        {
-            cartOpen
-            ? <Cart setCartOpen={setCartOpen}/>
-            : null
-        }
-    </div>
+        <>
+            <div className={styles['cart']} onClick={toggleCart} >
+                <CartSvg style={{
+                    width: '90%',
+                    height: '75%',
+                }}
+                />
+                <div className={styles['count']}>
+                    <span>{totalCount}</span>
+                </div>
+
+            </div>
+            {
+                cartOpen
+                    ? <Cart setCartOpen={setCartOpen} toggleCart={toggleCart} />
+                    : null
+            }
+        </>
+
     )
 }
 

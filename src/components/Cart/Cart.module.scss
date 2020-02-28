@@ -1,12 +1,12 @@
 .cart{
 
     position: absolute;
-    top: 90%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 55px;
+    right: 50px;
+    // transform: translateX(-50%);
 
-    width: 200px;
-    height: 300px;
+    width: 240px;
+    height: 360px;
     background: #fff;
     box-shadow: 0 6px 12px 0 rgba(0,0,0,0.4);
     border-radius: 20px;
@@ -19,6 +19,25 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+    .close-btn{
+        position: absolute;
+        top:10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        box-shadow: 0 3px 6px 0 rgba(0,0,0,0.4);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .icon{
+            width:60%;
+            height: 60%;
+        }
+    }
 
     .title{
         height: 15%;
@@ -78,8 +97,8 @@
 
 @media only screen  and ( min-width: 1100px ){
     .cart{
-        width: 250px;
-        height: 300px;
-        left: 0%;
+        width: 270px;
+        height: 400px;
+         
     }
 }

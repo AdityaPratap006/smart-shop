@@ -19,18 +19,25 @@ const ProductTypesMessage = ({ addMessage, setProductType, popMessage }) => {
 
     useEffect(() => {
 
+        let isSubscribed = true;
         Axios
             .get(`https://smart-shop-api.herokuapp.com/types`)
             .then(axiosRes => axiosRes.data)
             .then(apiRes => apiRes.data)
             .then(recivedData => {
+              if(isSubscribed){
                 setLoading(false);
                 setTypeList(recivedData);
+              }
 
             })
             .catch(err => {
                 console.error({ error: err });
             })
+
+            return () => {
+                isSubscribed = false;
+            }
 
     }, [addMessage, setProductType]);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -17,26 +17,30 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
-import Register from './pages/Register/Register';
+import UserProfile from './pages/UserProfile/UserProfile';
+// import Register from './pages/Register/Register';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
 
-class App extends React.Component {
+// import { useHistory } from 'react-router-dom';
 
-  unsubscribeFromAuth = null;
+const App = ({ currentUser, isLoadingUser, setCurrentUser, registerUserName, registerUserProfilePic }) => {
+
+ 
+
+  useEffect(() => {
 
 
-  componentDidMount() {
+    let unsubscribeFromAuth = null;
 
-    const { setCurrentUser, registerUserName, registerUserProfilePic } = this.props;
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
 
-     
+
       if (userAuth) {
 
         console.log('Auth state changed!! ', userAuth);
-        
+
         const userData = await createUserProfile(userAuth, { name: registerUserName, profilePic: registerUserProfilePic }, 'app');
-        
+
         setCurrentUser(userData.data);
       }
       else {
@@ -45,59 +49,73 @@ class App extends React.Component {
 
 
     })
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
 
 
-  render() {
+    return () => {
+      unsubscribeFromAuth()
+    }
+  }, [registerUserName, registerUserProfilePic, setCurrentUser]);
 
-    const { currentUser, isLoadingUser } = this.props;
-    return (
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              isLoadingUser
-                ? <Loader />
-                : <Redirect to="/home" />
 
-            )}
-          />
-          <Route
-            exact
-            path="/home"
-            render={() => (
-              !isLoadingUser
-                ? (
-                  currentUser
-                    ? <Home />
-                    : <Redirect to="/sign-in" />
-                ) : <Redirect to="/" />
-            )}
-          />
-          <Route
-            exact
-            path="/sign-in"
-            render={() => (
-              !isLoadingUser
-                ? (
-                  currentUser
-                    ? <Redirect to="/home" />
-                    : <Login />
-                ) : <Redirect to="/" />
 
-            )}
-          />
-        </Switch>
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Navbar />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            isLoadingUser
+              ? <Loader />
+              : (
+                  <Redirect to="/home" />
+              )
+
+          )}
+        />
+        <Route
+          exact
+          path="/home"
+          render={() => (
+            !isLoadingUser
+              ? (
+                currentUser
+                  ? <Home />
+                  : <Redirect to="/sign-in" />
+              ) : <Redirect to="/" />
+          )}
+        />
+        <Route
+          exact
+          path="/sign-in"
+          render={() => (
+            !isLoadingUser
+              ? (
+                currentUser
+                  ? <Redirect to="/home" />
+                  : <Login />
+              ) : <Redirect to="/" />
+
+          )}
+        />
+        <Route
+          exact
+          path="/profile"
+          render={() => (
+            !isLoadingUser
+              ? (
+                currentUser
+                  ? <UserProfile />
+                  : <Redirect to="/sign-in" />
+              ) : <Redirect to="/" />
+
+          )}
+        />
+      </Switch>
+    </div>
+  );
+
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -109,7 +127,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  
+
 
 });
 

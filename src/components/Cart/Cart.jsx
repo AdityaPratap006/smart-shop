@@ -7,11 +7,18 @@ import { Link } from 'react-router-dom';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import CartItem from '../CartItem/CartItem';
 
-const Cart = ({ cartItems }) => {
+import { ReactComponent as CloseBtnIcon } from '../../assets/times-solid.svg';
+
+const Cart = ({ cartItems, toggleCart }) => {
     
 
     return (
         <div className={styles['cart']}>
+            <div className={styles['close-btn']} onClick={toggleCart}>
+                <CloseBtnIcon 
+                    className={styles['icon']}
+                />
+            </div>
             <div className={styles['title']}>
                 <span>YOUR CART</span>
             </div>

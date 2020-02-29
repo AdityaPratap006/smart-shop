@@ -4,7 +4,10 @@ import styles from './ProductModal.module.scss';
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
 import { connect } from 'react-redux';
-import { addCartItem } from '../../redux/cart/cart.actions';
+import { addCartItem, addCartItemStartAsync } from '../../redux/cart/cart.actions';
+
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors'; 
 
 
 const renderDescription = (description) => {
@@ -30,7 +33,7 @@ const renderDescription = (description) => {
     );
 }
 
-const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
+const ProductModal = ({ setModal, setModalProduct, product, addCartItem, cartItems, currentUser, addCartItemStartAsync }) => {
 
    
 
@@ -69,10 +72,7 @@ const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
                    product.count > 0 
                    ? (
                     <div className={styles['add-cart-btn']} onClick={() => {
-                        addCartItem({
-                            productRef: product._id,
-                            count: 1,
-                        });
+                        addCartItemStartAsync(currentUser.userid, cartItems, product);
                         setModal(false);
                     }}>
                         ADD TO CART
@@ -89,11 +89,13 @@ const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
 }
 
 const mapStateToProps = (state) => ({
-    
+    currentUser : selectCurrentUser(state),
+    cartItems: selectCartItems(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     addCartItem: product => dispatch(addCartItem(product)),
+    addCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(addCartItemStartAsync(userId, cartItemsArray, item)),
 });
  
 

@@ -7,12 +7,12 @@ import { ReactComponent as PlusIcon } from '../../assets/plus-solid.svg';
 import { ReactComponent as MinusIcon } from '../../assets/minus-solid.svg';
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
-import { addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync } from '../../redux/cart/cart.actions';
+import { addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, removeCartItemStartAsync } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 
-const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, cartItems, currentUser }) => {
+const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, removeCartItemStartAsync, cartItems, currentUser }) => {
     return (
         <div className={styles['card']}>
             <div className={styles['remove-btn']} onClick={() => {clearItemFromCart(item)}}> 
@@ -31,7 +31,8 @@ const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart, ad
                     </div>
                     <div className={styles['controls']}>
                         <div className={styles['btn']} onClick={() => {
-                            removeCartItem(item);
+                            // removeCartItem(item);
+                            removeCartItemStartAsync(currentUser.userid, cartItems, item);
                         }}>
                             <MinusIcon className={styles['icon']}/>
                         </div>
@@ -64,6 +65,7 @@ const mapDispatchToProps = dispatch => ({
     removeCartItem: item => dispatch(removeCartItem(item)),
     clearItemFromCart: item => dispatch(clearItemFromCart(item)),
     addCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(addCartItemStartAsync(userId, cartItemsArray, item)),
+    removeCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(removeCartItemStartAsync(userId, cartItemsArray, item)),
 
 })
 

@@ -5,12 +5,18 @@ import {
     SET_CART_ITEMS, 
     ADD_CART_ITEM_START, 
     ADD_CART_ITEM_SUCCESS,
-    ADD_CART_ITEM_FAILURE
+    ADD_CART_ITEM_FAILURE,
+    REMOVE_CART_ITEM_START,
+    REMOVE_CART_ITEM_SUCCESS,
+    REMOVE_CART_ITEM_FAILURE,
+    CLEAR_ITEM_FROM_CART_START,
+    CLEAR_ITEM_FROM_CART_SUCCESS,
+    CLEAR_ITEM_FROM_CART_FAILURE,
 } from './cart.types';
 
 import Axios from 'axios';
 
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 export const setCartItems = cartItems => ({
     type: SET_CART_ITEMS,
@@ -33,6 +39,10 @@ export const clearItemFromCart = item => ({
 })
 
 
+
+//asynchronous actions
+
+//add
 export const addCartItemStart = (item) => ({
     type: ADD_CART_ITEM_START,
     payload: item
@@ -66,6 +76,45 @@ export const addCartItemStartAsync = (userId, cartItemsArray, item) => {
         .catch(err => {
 
             dispatch(addCartItemFailure(err.message, item));
+        })
+    }
+}
+
+
+//remove
+export const removeCartItemStart = (item) => ({
+    type: REMOVE_CART_ITEM_START,
+    payload: item
+})
+
+export const removeCartItemSuccess = (cartItems) => ({
+    type: REMOVE_CART_ITEM_SUCCESS,
+    payload: cartItems
+})
+
+export const removeCartItemFailure = (errorMessage,item) => ({
+    type: REMOVE_CART_ITEM_FAILURE,
+    payload: {err: errorMessage, item: item}
+})
+
+export const removeCartItemStartAsync = (userId, cartItemsArray, item) => {
+
+    return dispatch => {
+
+        dispatch(removeCartItemStart(item));
+        Axios
+        .post(`https://smart-shop-api.herokuapp.com/${userId}/addtocart`,{
+            cartItems: removeItemFromCart(cartItemsArray, item)
+        })
+        .then(res => res.data)
+        .then(userData => userData.data.cart)
+        .then(cartItems => {
+            console.log({userCart: cartItems});
+            dispatch(removeCartItemSuccess(cartItems));
+        })
+        .catch(err => {
+
+            dispatch(removeCartItemFailure(err.message, item));
         })
     }
 }

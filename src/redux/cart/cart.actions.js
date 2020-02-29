@@ -118,3 +118,41 @@ export const removeCartItemStartAsync = (userId, cartItemsArray, item) => {
         })
     }
 }
+
+//clear
+export const clearCartItemStart = (item) => ({
+    type: CLEAR_ITEM_FROM_CART_START,
+    payload: item
+})
+
+export const clearCartItemSuccess = (cartItems) => ({
+    type: CLEAR_ITEM_FROM_CART_SUCCESS,
+    payload: cartItems
+})
+
+export const clearCartItemFailure = (errorMessage,item) => ({
+    type: CLEAR_ITEM_FROM_CART_FAILURE,
+    payload: {err: errorMessage, item: item}
+})
+
+export const clearCartItemStartAsync = (userId, cartItemsArray, item) => {
+
+    return dispatch => {
+
+        dispatch(clearCartItemStart(item));
+        Axios
+        .post(`https://smart-shop-api.herokuapp.com/${userId}/addtocart`,{
+            cartItems: cartItemsArray.filter(cartItem => cartItem._id !== item._id)
+        })
+        .then(res => res.data)
+        .then(userData => userData.data.cart)
+        .then(cartItems => {
+            console.log({userCart: cartItems});
+            dispatch(clearCartItemSuccess(cartItems));
+        })
+        .catch(err => {
+
+            dispatch(clearCartItemFailure(err.message, item));
+        })
+    }
+}

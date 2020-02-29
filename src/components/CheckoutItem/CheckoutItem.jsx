@@ -7,15 +7,15 @@ import { ReactComponent as PlusIcon } from '../../assets/plus-solid.svg';
 import { ReactComponent as MinusIcon } from '../../assets/minus-solid.svg';
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
-import { addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, removeCartItemStartAsync } from '../../redux/cart/cart.actions';
+import { addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, removeCartItemStartAsync, clearCartItemStartAsync } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 
-const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, removeCartItemStartAsync, cartItems, currentUser }) => {
+const CheckoutItem = ({ item, addCartItemStartAsync, removeCartItemStartAsync, clearCartItemStartAsync, cartItems, currentUser }) => {
     return (
         <div className={styles['card']}>
-            <div className={styles['remove-btn']} onClick={() => {clearItemFromCart(item)}}> 
+            <div className={styles['remove-btn']} onClick={() => {clearCartItemStartAsync(currentUser.userid, cartItems, item)}}> 
                 <CrossIcon className={styles['cross-icon']}/>
             </div>
             <div className={styles['title']}>
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => ({
     clearItemFromCart: item => dispatch(clearItemFromCart(item)),
     addCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(addCartItemStartAsync(userId, cartItemsArray, item)),
     removeCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(removeCartItemStartAsync(userId, cartItemsArray, item)),
-
+    clearCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(clearCartItemStartAsync(userId, cartItemsArray, item)),
 })
 
 export default connect(

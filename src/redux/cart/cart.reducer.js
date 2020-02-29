@@ -8,7 +8,10 @@ import {
     ADD_CART_ITEM_FAILURE,
     REMOVE_CART_ITEM_START,
     REMOVE_CART_ITEM_SUCCESS,
-    REMOVE_CART_ITEM_FAILURE,  
+    REMOVE_CART_ITEM_FAILURE,
+    CLEAR_ITEM_FROM_CART_START,
+    CLEAR_ITEM_FROM_CART_SUCCESS,
+    CLEAR_ITEM_FROM_CART_FAILURE,  
 } from './cart.types';
 
 import { addItemToCart, removeItemFromCart } from './cart.utils';
@@ -87,12 +90,34 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                 removeError: payload.err,
                 cartItems: addItemToCart(state.cartItems, payload.item)
             };
+
         
         case CLEAR_ITEM_FROM_CART:
             return {
                 ...state,
                 cartItems: state.cartItems.filter(item => item._id !== payload._id)
             };
+        case CLEAR_ITEM_FROM_CART_START:
+            return {
+                ...state,
+                clearingItem:true,
+                cartItems: state.cartItems.filter(item => item._id !== payload._id)
+            };
+        case CLEAR_ITEM_FROM_CART_SUCCESS:
+            return {
+                ...state,
+                clearError:'',
+                clearingItem: false,
+                cartItems: [...payload]
+            };
+        case CLEAR_ITEM_FROM_CART_FAILURE:
+            return {
+                ...state,
+                clearError: payload.err,
+                clearingItem: false,
+                cartItems: state.cartItems
+            };
+        
         default:
             return state;
     }

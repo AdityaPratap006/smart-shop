@@ -7,10 +7,12 @@ import { ReactComponent as PlusIcon } from '../../assets/plus-solid.svg';
 import { ReactComponent as MinusIcon } from '../../assets/minus-solid.svg';
 import { ReactComponent as CrossIcon } from '../../assets/times-solid.svg';
 
-import { addCartItem, removeCartItem, clearItemFromCart } from '../../redux/cart/cart.actions';
+import { addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync } from '../../redux/cart/cart.actions';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 
-const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart }) => {
+const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart, addCartItemStartAsync, cartItems, currentUser }) => {
     return (
         <div className={styles['card']}>
             <div className={styles['remove-btn']} onClick={() => {clearItemFromCart(item)}}> 
@@ -39,7 +41,8 @@ const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart }) 
                             </span>
                         </div>
                         <div className={styles['btn']} onClick={() => {
-                            addCartItem(item);
+                            // addCartItem(item);
+                            addCartItemStartAsync(currentUser.userid, cartItems, item);
                         }}>
                              <PlusIcon className={styles['icon']}/>
                         </div>
@@ -52,12 +55,16 @@ const CheckoutItem = ({ item, addCartItem, removeCartItem, clearItemFromCart }) 
 
 const mapStateToProps = (state) => ({
 
+    cartItems: selectCartItems(state),
+    currentUser: selectCurrentUser(state),
 })
 
 const mapDispatchToProps = dispatch => ({
     addCartItem: item => dispatch( addCartItem(item) ),
     removeCartItem: item => dispatch(removeCartItem(item)),
     clearItemFromCart: item => dispatch(clearItemFromCart(item)),
+    addCartItemStartAsync: (userId, cartItemsArray, item) => dispatch(addCartItemStartAsync(userId, cartItemsArray, item)),
+
 })
 
 export default connect(

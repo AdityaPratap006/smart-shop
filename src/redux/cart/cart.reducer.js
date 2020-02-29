@@ -1,8 +1,23 @@
-import { ADD_CART_ITEM, CLEAR_ITEM_FROM_CART, REMOVE_CART_ITEM, SET_CART_ITEMS,  } from './cart.types';
+import { 
+    ADD_CART_ITEM, 
+    CLEAR_ITEM_FROM_CART, 
+    REMOVE_CART_ITEM, 
+    SET_CART_ITEMS,
+    ADD_CART_ITEM_START,
+    ADD_CART_ITEM_SUCCESS,
+    ADD_CART_ITEM_FAILURE,  
+} from './cart.types';
+
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
     cartItems: [],
+    addingItem: false,
+    addError: '',
+    removingItem: false,
+    removeError: '',
+    clearingItem: false,
+    clearError: '',
 }
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -19,6 +34,26 @@ const cartReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 cartItems: addItemToCart(state.cartItems, payload)
+            };
+        case ADD_CART_ITEM_START:
+            return {
+                ...state,
+                addingItem: true,
+                cartItems: addItemToCart(state.cartItems, payload)
+            };
+        case ADD_CART_ITEM_SUCCESS:
+            return {
+                ...state,
+                addingItem: false,
+                addError:'',
+                cartItems: [...payload]
+            };
+        case ADD_CART_ITEM_FAILURE:
+            return {
+                ...state,
+                addingItem: false,
+                addError: payload.err,
+                cartItems: removeItemFromCart(state.cartItems, payload.item)
             };
         case REMOVE_CART_ITEM:
             return {

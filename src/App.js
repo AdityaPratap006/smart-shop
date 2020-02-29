@@ -20,15 +20,17 @@ import Loader from './pages/Loader/Loader';
 import UserProfile from './pages/UserProfile/UserProfile';
 // import Register from './pages/Register/Register';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
+import Checkout from './pages/Checkout/Checkout';
 
 // import { useHistory } from 'react-router-dom';
 
 const App = ({ currentUser, isLoadingUser, setCurrentUser, registerUserName, registerUserProfilePic }) => {
 
- 
+
 
   useEffect(() => {
 
+    window.scrollTo(0,0);
 
     let unsubscribeFromAuth = null;
 
@@ -69,7 +71,7 @@ const App = ({ currentUser, isLoadingUser, setCurrentUser, registerUserName, reg
             isLoadingUser
               ? <Loader />
               : (
-                  <Redirect to="/home" />
+                <Redirect to="/home" />
               )
 
           )}
@@ -107,6 +109,19 @@ const App = ({ currentUser, isLoadingUser, setCurrentUser, registerUserName, reg
               ? (
                 currentUser
                   ? <UserProfile />
+                  : <Redirect to="/sign-in" />
+              ) : <Redirect to="/" />
+
+          )}
+        />
+        <Route
+          exact
+          path="/checkout"
+          render={() => (
+            !isLoadingUser
+              ? (
+                currentUser
+                  ? <Checkout/>
                   : <Redirect to="/sign-in" />
               ) : <Redirect to="/" />
 

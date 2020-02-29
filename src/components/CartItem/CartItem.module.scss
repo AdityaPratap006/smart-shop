@@ -7,9 +7,17 @@
     
      
      
-    img {
-        max-width: 30%;
-        max-height: 90%;
+    .image-div{
+        width: 30%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 100%;
+            max-height: 90%;
+        }
     }
 
     .item-details{

@@ -105,7 +105,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
             });
         },1200);
 
-    }, [addMessage, clearChat]);
+    }, [addMessage, clearChat, currentUser.name]);
 
     const lastEl = useRef(null);
 

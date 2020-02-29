@@ -20,18 +20,27 @@ const ProductBrandMessage = ({ addMessage, setProductBrand, popMessage, productT
 
     useEffect(() => {
 
+        let subscribed = true;
+
         Axios
             .get(`https://smart-shop-api.herokuapp.com/${productType}/${productCategory}/brands`)
             .then(axiosRes => axiosRes.data)
             .then(apiRes => apiRes.data)
             .then(recivedData => {
-                setLoading(false);
-                setBrandList(recivedData);
-                console.log({ brands: recivedData });
+
+                if (subscribed) {
+                    setLoading(false);
+                    setBrandList(recivedData);
+                }
+
             })
             .catch(err => {
                 console.error({ error: err });
             })
+
+        return () => {
+            subscribed = false;
+        }
 
     }, [addMessage, setProductBrand, productCategory, productType]);
 

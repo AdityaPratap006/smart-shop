@@ -11,7 +11,7 @@ import registerUserReducer from './registerUser/registerUser.reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: [  ],
+    whitelist: [ 'cart' ],
 }
 
 const rootReducer = combineReducers({

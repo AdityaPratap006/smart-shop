@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './CartItem.module.scss';
 
-const CartItem = ({ product: { _id, name, price, brand, image, cartQuantity } }) => {
+const CartItem = ({ item: { _id, name, price, brand, image, cartQuantity } }) => {
     return (
         <div className={styles['cart-item']}>
             <div className={styles['image-div']}>

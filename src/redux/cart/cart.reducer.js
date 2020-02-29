@@ -1,4 +1,4 @@
-import { ADD_CART_ITEM, CLEAR_ITEM_FROM_CART, REMOVE_CART_ITEM,  } from './cart.types';
+import { ADD_CART_ITEM, CLEAR_ITEM_FROM_CART, REMOVE_CART_ITEM, SET_CART_ITEMS,  } from './cart.types';
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
@@ -10,6 +10,11 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     const { type, payload } = action;
 
     switch (type) {
+        case SET_CART_ITEMS:
+            return {
+                ...state,
+                cartItems: [...payload]
+            };
         case ADD_CART_ITEM:
             return {
                 ...state,

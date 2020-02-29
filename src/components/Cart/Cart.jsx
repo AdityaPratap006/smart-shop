@@ -28,7 +28,7 @@ const Cart = ({ cartItems, toggleCart }) => {
                     cartItems.map(item => {
 
                         return (
-                            <CartItem key={item._id} product={item}/>
+                            <CartItem key={item._id} item={item}/>
                         );
                     })
                     : (

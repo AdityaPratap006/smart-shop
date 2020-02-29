@@ -69,7 +69,10 @@ const ProductModal = ({ setModal, setModalProduct, product, addCartItem }) => {
                    product.count > 0 
                    ? (
                     <div className={styles['add-cart-btn']} onClick={() => {
-                        addCartItem(product);
+                        addCartItem({
+                            productRef: product._id,
+                            count: 1,
+                        });
                         setModal(false);
                     }}>
                         ADD TO CART

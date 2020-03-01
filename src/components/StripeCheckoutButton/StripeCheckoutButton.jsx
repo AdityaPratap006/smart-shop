@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useState, useEffect, useRef  } from "react";
 
 import StripeCheckout from "react-stripe-checkout";
-import { setCartItems } from "../../redux/cart/cart.actions";
+import NotificationSnackbar from '../NotificationSnackbar/NotificationSnackbar';
 
 import { connect } from 'react-redux';
+import { setCartItems } from "../../redux/cart/cart.actions";
+
+
 
 
 const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) => {
+
+    // const productsInCart = products;
+
+    let subscribed = useRef(true);
+
+    useEffect(()=>{
+        subscribed.current = true
+        return () => {
+            subscribed.current = false;
+        }
+    },[])
+
+    const [ isActive, setIsActive ] = useState(false); 
+
+    const openSnackBar = () => {
+
+        setIsActive(true);
+
+        setTimeout(() => {
+            setIsActive(false);
+        }, 60000);
+
+    }
+
+     
 
     const makePayment = async token => {
         const body = {
@@ -26,6 +54,12 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
             .then(response => response.json())
             .then(res => {
                 console.log({reponse: res});
+                setCartItems([]);
+                
+                if(subscribed.current){
+                    openSnackBar();
+                }
+               
                 fetch(`https://smart-shop-api.herokuapp.com/${userId}/addtocart`, {
                     method: "POST",
                     headers,
@@ -35,9 +69,10 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
                 })
                 .then(res2 => res2.json())
                 .then(data => {
-                    setCartItems([]);
+                   
                 }).catch(err => {
                     console.log({errorClearingCart: err});
+
                 })
             })
             .catch(error => console.log({
@@ -47,19 +82,29 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
 
     return (
 
-        <StripeCheckout
-            stripeKey="pk_test_TCFZh8NDbjzvKdGUFEJSgc0K00dT8h16im"
-            token={makePayment}
-            name="SmartKart"
-            currency={'INR'}
-            description={`Your total is ₹ ${totalPrice}`}
-            amount={totalPrice * 100}
-            label={'Proceed to Pay'}
-            panelLabel={'Pay Now'}
-            shippingAddress
-            billingAddress
+        <>
+        {
+            products.length
+            ? (
+                <StripeCheckout
+                    stripeKey="pk_test_TCFZh8NDbjzvKdGUFEJSgc0K00dT8h16im"
+                    token={makePayment}
+                    name="SmartKart"
+                    currency={'INR'}
+                    description={`Your total is ₹ ${totalPrice}`}
+                    amount={totalPrice * 100}
+                    label={'Proceed to Pay'}
+                    panelLabel={'Pay Now'}
+                    shippingAddress
+                    billingAddress
 
-        />
+                />
+            ):(
+                <p>{`Your Cart is Empty :(`}</p>
+            )
+        }
+            <NotificationSnackbar isActive={isActive} message={'PAYMENT SUCCESSFUL!'} type={'success'}/>
+        </>
 
     );
 }

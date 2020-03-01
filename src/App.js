@@ -58,7 +58,7 @@ const App = ({ currentUser, isLoadingUser, setCurrentUser, setCartItems, registe
     return () => {
       unsubscribeFromAuth()
     }
-  }, [registerUserName, registerUserProfilePic, setCurrentUser]);
+  }, [registerUserName, registerUserProfilePic, setCurrentUser, setCartItems]);
 
 
 

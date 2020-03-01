@@ -16,7 +16,8 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
     let subscribed = useRef(true);
 
     useEffect(()=>{
-        subscribed.current = true
+        subscribed.current = true;
+       
         return () => {
             subscribed.current = false;
         }
@@ -28,9 +29,15 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
 
         setIsActive(true);
 
-        setTimeout(() => {
-            setIsActive(false);
-        }, 60000);
+       
+            setTimeout(() => {
+
+                if(subscribed.current){
+                    setIsActive(false);
+                }
+                
+            }, 60000);
+        
 
     }
 

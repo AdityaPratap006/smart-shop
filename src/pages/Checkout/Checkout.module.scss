@@ -17,6 +17,57 @@
         justify-content: flex-start;
         align-items: center;
     }
+
+    .total-price{
+        max-width:80vw;
+        width: 400px;
+        font-size: 2rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .alert{
+        width: 80%;
+        height: 2rem;
+        font-size: 0.85rem;
+        color: red;
+        text-align: center;
+        margin: 30px 0 0 0;
+    }
+
+
+    .credit-card{
+        max-width:80vw;
+        width: 400px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba($color: #000000, $alpha: 0.4);
+
+        .number, .expiry, .cvv{
+            width:80%;
+            height: 33%;
+            color: purple;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items: flex-start;
+        }
+    }
+
+    .stripe-btn-div{
+        width: 80%;
+        height: 3rem;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
 }
 
 

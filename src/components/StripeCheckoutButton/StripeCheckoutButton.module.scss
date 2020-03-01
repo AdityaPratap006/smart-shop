@@ -1,0 +1,15 @@
+.pay-btn{
+    padding: 12px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    border-radius: 6px;
+    color: #fff;
+    text-transform: uppercase;
+    background: #00B4DB;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    cursor: pointer;
+    transition: 0.15s linear;
+    &:hover{
+        transform: scale(1.04);
+    }
+}

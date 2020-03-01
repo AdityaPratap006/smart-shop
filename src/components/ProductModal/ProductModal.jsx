@@ -8,6 +8,7 @@ import { addCartItem, addCartItemStartAsync } from '../../redux/cart/cart.action
 
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartItems } from '../../redux/cart/cart.selectors'; 
+import StripeCheckoutButton from '../StripeCheckoutButton/StripeCheckoutButton';
 
 
 const renderDescription = (description) => {
@@ -82,6 +83,17 @@ const ProductModal = ({ setModal, setModalProduct, product, addCartItem, cartIte
                          {`OUT OF STOCK :(`}
                        </div>
                    )
+               }
+               {
+                   product.count > 0 
+                   ? (
+                    <StripeCheckoutButton
+                        label={'Buy Now'}
+                        userId={currentUser.userid}
+                        products={[{...product, cartQuantity: 1}]}
+                        totalPrice={product.price}
+                    />
+                   ): null
                }
             </div>
         </div>

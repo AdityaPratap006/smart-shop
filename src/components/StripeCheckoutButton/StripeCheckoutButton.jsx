@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef  } from "react";
+import styles from './StripeCheckoutButton.module.scss';
 
 import StripeCheckout from "react-stripe-checkout";
 import NotificationSnackbar from '../NotificationSnackbar/NotificationSnackbar';
 
 import { connect } from 'react-redux';
-import { setCartItems } from "../../redux/cart/cart.actions";
+import { setCartItems, clearCartItemStartAsync } from "../../redux/cart/cart.actions";
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
-
-
-
-const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) => {
+const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItems, clearCartItemStartAsync, cartItems }) => {
 
     // const productsInCart = products;
+    console.log({totalPrice});
 
     let subscribed = useRef(true);
 
@@ -59,19 +59,21 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
             body: JSON.stringify(body)
         })
             .then(response => response.json())
-            .then(res => {
+            .then( res => {
                 console.log({reponse: res});
-                setCartItems([]);
-                
+                 
+                setCartItems([...cartItems.filter(item => !products.includes(item))]);
                 if(subscribed.current){
                     openSnackBar();
                 }
+
+               
                
                 fetch(`https://smart-shop-api.herokuapp.com/${userId}/addtocart`, {
                     method: "POST",
                     headers,
                     body: JSON.stringify({
-                        cartItems: [],
+                        cartItems: [...cartItems.filter(item => !products.includes(item))],
                     })
                 })
                 .then(res2 => res2.json())
@@ -100,12 +102,16 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
                     currency={'INR'}
                     description={`Your total is ₹ ${totalPrice}`}
                     amount={totalPrice * 100}
-                    label={'Proceed to Pay'}
+                    label={label}
                     panelLabel={'Pay Now'}
                     shippingAddress
                     billingAddress
 
-                />
+                >
+                    <div className={styles['pay-btn']}>
+                        {label}
+                    </div>
+                </StripeCheckout>
             ):(
                 <p>{`Your Cart is Empty :(`}</p>
             )
@@ -117,11 +123,12 @@ const StripeCheckoutButton = ({ products, totalPrice, userId, setCartItems }) =>
 }
 
 const mapStateToProps = (state) => ({
-    
+    cartItems: selectCartItems(state),
 })
 
 const mapDispatchToProps =  dispatch => ({
     setCartItems: cartItems => dispatch(setCartItems(cartItems)),
+   clearCartItemStartAsync: (userId, cartItems, item) => dispatch(clearCartItemStartAsync(userId, cartItems, item)) 
 })
 
 

@@ -1,11 +1,11 @@
 .snackbar{
     width:400px;
     height: 90px;
-    max-width: 80vw;
+    max-width: 80%;
     visibility: hidden;
     background: rgba($color: #000000, $alpha: 0.96);
     padding: 10px 8px;
-    z-index: 2;
+    z-index: 300;
     position: fixed;
     top:25vh;
     right: 20px;

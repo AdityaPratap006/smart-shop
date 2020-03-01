@@ -43,6 +43,7 @@ const Checkout = ({ cartItems, currentUser }) => {
             </div>
             <div className={styles['stripe-btn-div']}>
                 <StripeCheckoutButton
+                    label={'Proceed to Pay'}
                     userId={currentUser.userid}
                     products={cartItems}
                     totalPrice={getTotalPrice}

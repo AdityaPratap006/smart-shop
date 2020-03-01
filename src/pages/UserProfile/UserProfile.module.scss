@@ -118,6 +118,22 @@
             align-items: center;
 
         }
+
+        .order-list{
+            width: 100%;
+            height: 90%;
+            
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar{
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb{
+                background-color: #aaa;
+                border-radius: 500px;
+            }
+        }
     }
 }
 

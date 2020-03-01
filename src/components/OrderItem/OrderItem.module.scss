@@ -1,0 +1,75 @@
+.order-card{
+    width: 96%;
+    height: 150px;
+    margin: 10px auto;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    // box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    .title{
+        width: 90%;
+        height: 10%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        text-transform: capitalize;
+        font-weight: 600;
+        margin-top: 5px;
+        padding: 2px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .body{
+
+        width: 90%;
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .image-div{
+            width:50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                max-width: 90%;
+                max-height: 90%;
+            }
+        }
+
+        .details{
+            width:50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+
+            h5{
+                margin: 10px 0;
+                padding: 0;
+            }
+        }
+    }
+
+    .footer{
+        width: 90%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 0.75rem;
+    }   
+}

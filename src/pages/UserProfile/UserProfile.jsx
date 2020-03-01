@@ -6,6 +6,7 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import Loader from '../Loader/Loader';
 
 import { auth } from '../../firebase/firebase.utils';
+import OrderItem from '../../components/OrderItem/OrderItem';
 
 const UserProfile = ({ currentUser }) => {
     return currentUser ? (
@@ -31,7 +32,15 @@ const UserProfile = ({ currentUser }) => {
                     Your Orders
                 </div>
                 <div className={styles['order-list']}>
-
+                    {
+                        currentUser.products.length ? (
+                            currentUser.products.map(item => (
+                                <OrderItem key={`${item.orderedAt} ${item._id}`} item={item}/>
+                            ))
+                        ): (
+                            <p> Your Orders will appear here </p>
+                        )
+                    }
                 </div>
             </div>
         </div>

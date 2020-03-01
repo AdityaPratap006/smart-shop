@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { setCartItems, clearCartItemStartAsync } from "../../redux/cart/cart.actions";
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 
+import { useHistory } from 'react-router-dom';
+
 const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItems, clearCartItemStartAsync, cartItems }) => {
 
     // const productsInCart = products;
@@ -42,7 +44,7 @@ const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItem
     }
 
      
-
+    const history = useHistory();
     const makePayment = async token => {
         const body = {
             token,
@@ -78,6 +80,10 @@ const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItem
                 })
                 .then(res2 => res2.json())
                 .then(data => {
+
+                   
+
+                    history.push('/profile');
                    
                 }).catch(err => {
                     console.log({errorClearingCart: err});
@@ -88,6 +94,8 @@ const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItem
                 'Error in payment': error
             }));
     };
+
+    
 
     return (
 

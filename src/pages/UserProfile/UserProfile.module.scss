@@ -125,6 +125,26 @@
             
             overflow-y: scroll;
 
+            .loading{
+                    margin:50% auto;
+                    width: 45px;
+                    height: 45px;
+                    border: 4px solid #00B4DB;
+                    border-top: 4px solid #0083B0;
+                    border-radius: 50%;
+
+                    animation: rotate 0.8s linear infinite;;
+
+                    @keyframes rotate {
+                        0%{
+                            transform: rotate(0deg);
+                        }
+                        100%{
+                            transform: rotate(360deg);
+                        }
+                    }
+            }
+
             &::-webkit-scrollbar{
                 width: 8px;
             }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './UserProfile.module.scss';
 
 import { connect } from 'react-redux';
@@ -7,8 +7,49 @@ import Loader from '../Loader/Loader';
 
 import { auth } from '../../firebase/firebase.utils';
 import OrderItem from '../../components/OrderItem/OrderItem';
+import Axios from 'axios';
 
 const UserProfile = ({ currentUser }) => {
+
+    const [ state, setState ] = useState({
+        products: [],
+        loading: true,
+    });
+
+    useEffect(() => {
+
+        let subscribed = true;
+
+        Axios
+        .get(`https://smart-shop-api.herokuapp.com/${currentUser.userid}/orders`)
+        .then(res => res.data)
+        .then(result => result.data)
+        .then(userOrders => {
+
+            console.log([...userOrders]);
+           
+            if(subscribed){
+                setState({
+                    products: [...userOrders],
+                    loading: false,
+                })
+            }
+        })
+        .catch(err => {
+            if(subscribed){
+                setState({
+                    products: [],
+                    loading: false,
+                })
+            }
+            console.log({errorLoadingOrders: err});
+        })
+
+        return () => {
+            subscribed = false;
+        }
+    }, []);
+
     return currentUser ? (
         <div className={styles['profile-page']}>
             <div className={styles['card']}>
@@ -33,12 +74,18 @@ const UserProfile = ({ currentUser }) => {
                 </div>
                 <div className={styles['order-list']}>
                     {
-                        currentUser.products.length ? (
-                            currentUser.products.map(item => (
-                                <OrderItem key={`${item.orderedAt} ${item._id}`} item={item}/>
-                            ))
+                        state.loading ? (
+                            <div className={styles['loading']}>
+
+                            </div>
                         ): (
-                            <p> Your Orders will appear here </p>
+                            state.products.length ? (
+                                state.products.map(item => (
+                                     <OrderItem key={`${item.orderedAt} ${item._id}`} item={item}/>
+                                 ))
+                             ): (
+                                 <p> Your Orders will appear here </p>
+                             )
                         )
                     }
                 </div>

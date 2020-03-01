@@ -43,6 +43,7 @@ const formatDate = (dateString) => {
 
 
 const OrderItem = ({ item }) => {
+     
     return (
         <div className={styles['order-card']}>
             <div className={styles['title']}>
@@ -54,8 +55,8 @@ const OrderItem = ({ item }) => {
                     <img alt='product' src={item.image} />
                 </div>
                 <div className={styles['details']}>
-                    <h5>Qty: {item.cartQuantity}</h5>
-                    <h5>Amount: {`₹ ${item.cartQuantity * item.price}`}</h5>
+                    <h5>Qty: {item.orderCount}</h5>
+                    <h5>Amount: {`₹ ${item.orderCount * item.price}`}</h5>
                 </div>
             </div>
             <div className={styles['footer']}>

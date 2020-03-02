@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Checkout.module.scss';
 
 import { connect } from 'react-redux';
@@ -12,6 +12,9 @@ const Checkout = ({ cartItems, currentUser }) => {
 
     const getTotalPrice = cartItems.reduce((acc, item) => acc + (item.cartQuantity * item.price), 0);
 
+    useEffect(() => {
+        window.scrollTo(0,0);
+    },[])
 
     return (
         <div className={styles['checkout-page']}>

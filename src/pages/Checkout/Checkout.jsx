@@ -7,13 +7,15 @@ import { selectCartItems } from '../../redux/cart/cart.selectors';
 import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 import StripeCheckoutButton from '../../components/StripeCheckoutButton/StripeCheckoutButton';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { setCurrentRoute } from '../../redux/route/route.actions';
 
-const Checkout = ({ cartItems, currentUser }) => {
+const Checkout = ({ cartItems, currentUser, setCurrentRoute }) => {
 
     const getTotalPrice = cartItems.reduce((acc, item) => acc + (item.cartQuantity * item.price), 0);
 
     useEffect(() => {
-        window.scrollTo(0,'60px');
+        setCurrentRoute('/checkout');
+        window.scrollTo(0,'60px');  
     },[])
 
     return (
@@ -62,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+    setCurrentRoute: route => dispatch(setCurrentRoute(route)),
 });
 
 

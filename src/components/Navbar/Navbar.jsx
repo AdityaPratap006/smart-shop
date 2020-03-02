@@ -20,7 +20,7 @@ const Navbar = ({ currentUser }) => {
     return (
         <div className={styles['navbar']}>
             <div className={styles['bot-logo']} onClick={() =>{
-                history.push('/');
+                history.push('/home');
             }}>
                 <BotLogo
                     style={{

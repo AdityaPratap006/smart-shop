@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Login.module.scss';
 
 import { connect } from 'react-redux';
@@ -7,12 +7,13 @@ import { connect } from 'react-redux';
 // import AuthPageLink from '../../components/AuthPageLink/AuthPageLink';
 // import FormInput from '../../components/FormInput/FormInput';
 import OAuthButton from '../../components/OAuthButton/OAuthButton';
+import { setCurrentRoute } from '../../redux/route/route.actions';
 
 // import { signInWithEmailAndPassword } from '../../firebase/firebase.utils';
 
 
 
-const Login = () => {
+const Login = ({setCurrentRoute}) => {
 
     // const history = useHistory();
     // const { location: { pathname } } = history;
@@ -21,6 +22,10 @@ const Login = () => {
     // const [password, setPassword] = useState('');
     // const [processing, setProcessing] = useState(false);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        setCurrentRoute('/sign-in');
+    })
 
     // const handleSubmit = (event) => {
     //     event.preventDefault();
@@ -176,7 +181,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+    setCurrentRoute: route => dispatch(setCurrentRoute(route)),
 });
 
 export default connect(

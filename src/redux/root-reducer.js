@@ -7,11 +7,12 @@ import productsReducer from './products/products.reducer';
 import userReducer from './user/user.reducer';
 import cartReducer from './cart/cart.reducer';
 import registerUserReducer from './registerUser/registerUser.reducer';
+import routeReducer from './route/route.reducer';
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: [ 'cart' ],
+    whitelist: [ 'cart', 'route' ],
 }
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     cart: cartReducer,
     registerUser: registerUserReducer,
+    route: routeReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

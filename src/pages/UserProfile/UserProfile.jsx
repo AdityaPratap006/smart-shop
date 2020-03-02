@@ -8,8 +8,9 @@ import Loader from '../Loader/Loader';
 import { auth } from '../../firebase/firebase.utils';
 import OrderItem from '../../components/OrderItem/OrderItem';
 import Axios from 'axios';
+import { setCurrentRoute } from '../../redux/route/route.actions';
 
-const UserProfile = ({ currentUser }) => {
+const UserProfile = ({ currentUser, setCurrentRoute }) => {
 
     const [ state, setState ] = useState({
         products: [],
@@ -18,6 +19,8 @@ const UserProfile = ({ currentUser }) => {
 
     useEffect(() => {
 
+        setCurrentRoute('/profile');
+
         let subscribed = true;
 
         Axios
@@ -25,8 +28,6 @@ const UserProfile = ({ currentUser }) => {
         .then(res => res.data)
         .then(result => result.data)
         .then(userOrders => {
-
-            console.log([...userOrders]);
            
             if(subscribed){
                 setState({
@@ -101,7 +102,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+    setCurrentRoute: route => dispatch(setCurrentRoute(route)),
 })
 
 

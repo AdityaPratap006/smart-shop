@@ -22,10 +22,11 @@ import UserProfile from './pages/UserProfile/UserProfile';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/cart/cart.actions';
+import { selectCurrentRoute } from './redux/route/route.selectors';
 
 // import { useHistory } from 'react-router-dom';
 
-const App = ({ currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
+const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
 
 
 
@@ -73,7 +74,7 @@ const App = ({ currentUser, isLoadingUser, setCurrentUser, setCartItems, registe
             isLoadingUser
               ? <Loader />
               : (
-                <Redirect to="/home" />
+                <Redirect to={currentRoute} />
               )
 
           )}
@@ -140,6 +141,7 @@ const mapStateToProps = createStructuredSelector({
   isLoadingUser: selectIsLoadingUser,
   registerUserName: selectRegisterUserName,
   registerUserProfilePic: selectRegisterUserProfilePic,
+  currentRoute: selectCurrentRoute
 });
 
 const mapDispatchToProps = (dispatch) => ({

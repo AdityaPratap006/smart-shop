@@ -23,15 +23,19 @@ import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/re
 import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/cart/cart.actions';
 import { selectCurrentRoute } from './redux/route/route.selectors';
-
+import { setCurrentRoute } from './redux/route/route.actions';
 // import { useHistory } from 'react-router-dom';
 
-const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
+const App = ({ currentRoute, setCurrentRoute, currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
 
 
 
   useEffect(() => {
 
+    window.onunload = () => {
+      setCurrentRoute('/home');
+    }
+    
     window.scrollTo(0,0);
 
     let unsubscribeFromAuth = null;
@@ -61,7 +65,7 @@ const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCart
     }
   }, [registerUserName, registerUserProfilePic, setCurrentUser, setCartItems]);
 
-
+  
 
   return (
     <div className="App">
@@ -147,6 +151,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
   setCartItems: cartItems => dispatch(setCartItems(cartItems)),
+  setCurrentRoute: route => dispatch(setCurrentRoute(route)),
 
 });
 

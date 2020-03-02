@@ -121,7 +121,7 @@ const StripeCheckoutButton = ({ label, products, totalPrice, userId, setCartItem
                     </div>
                 </StripeCheckout>
             ):(
-                <p>{`Your Cart is Empty :(`}</p>
+                <p>{`Your Cart is Empty 😔`}</p>
             )
         }
             <NotificationSnackbar isActive={isActive} message={'PAYMENT SUCCESSFUL!'} type={'success'}/>

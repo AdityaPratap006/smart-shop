@@ -54,7 +54,7 @@ const Cart = ({ cartItems, toggleCart, closeCart }) => {
                     })
                     : (
                         <div className={styles['empty']}>
-                            <span>{'Your cart is empty :('} </span>
+                            <span>{'Your cart is empty 😔'} </span>
                         </div>
                     )
                 }

@@ -74,7 +74,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: `Hello ${capitalizeName(currentUser.name.split(' ')[0])}!`,
+                content: `Hello ${capitalizeName(currentUser.name.split(' ')[0])}! 😊😊😊`,
     
             });
         },120);
@@ -83,7 +83,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: ` I'm EVE, your personal shopping assistant!`,
+                content: ` I'm EVE, your personal shopping assistant! 😉`,
     
             });
         },400);
@@ -92,7 +92,7 @@ const ChatContainer = ({ messageList, addMessage, clearChat, currentUser }) => {
             addMessage({
                 type: 'text',
                 bot: true,
-                content: ` What would you like to purchase today?`,
+                content: ` What would you like to purchase today? 😋`,
     
             });
         },800);

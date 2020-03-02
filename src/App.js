@@ -32,9 +32,9 @@ const App = ({ currentRoute, setCurrentRoute, currentUser, isLoadingUser, setCur
 
   useEffect(() => {
 
-    window.onunload = () => {
-      setCurrentRoute('/home');
-    }
+    // window.onunload = () => {
+    //   setCurrentRoute('/home');
+    // }
     
     window.scrollTo(0,0);
 

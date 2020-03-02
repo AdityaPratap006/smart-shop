@@ -13,7 +13,7 @@ const Checkout = ({ cartItems, currentUser }) => {
     const getTotalPrice = cartItems.reduce((acc, item) => acc + (item.cartQuantity * item.price), 0);
 
     useEffect(() => {
-        window.scrollTo(0,0);
+        window.scrollTo(0,'60px');
     },[])
 
     return (

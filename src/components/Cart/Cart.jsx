@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import styles from './Cart.module.scss';
 
 import { connect } from 'react-redux'
@@ -9,11 +9,32 @@ import CartItem from '../CartItem/CartItem';
 
 import { ReactComponent as CloseBtnIcon } from '../../assets/times-solid.svg';
 
-const Cart = ({ cartItems, toggleCart }) => {
+const useOutsideAlerter = (ref, action) => {
     
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        // alert("You clicked outside of me!");
+        action();
+      }
+    }
+  
+    useEffect(() => {
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    });
+  }
+  
+
+const Cart = ({ cartItems, toggleCart, closeCart }) => {
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef, closeCart);
 
     return (
-        <div className={styles['cart']}>
+        <div ref={wrapperRef} className={styles['cart']}>
             <div className={styles['close-btn']} onClick={toggleCart}>
                 <CloseBtnIcon 
                     className={styles['icon']}

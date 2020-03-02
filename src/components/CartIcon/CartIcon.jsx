@@ -16,6 +16,10 @@ const CartIcon = ({ cartItems }) => {
         setCartOpen(!cartOpen);
     }
 
+    const closeCart = () => {
+        setCartOpen(false);
+    }
+
     const totalCount = cartItems.reduce((accumulator, item) => {
         return accumulator + item.cartQuantity
     }, 0);
@@ -35,7 +39,7 @@ const CartIcon = ({ cartItems }) => {
             </div>
             {
                 cartOpen
-                    ? <Cart setCartOpen={setCartOpen} toggleCart={toggleCart} />
+                    ? <Cart setCartOpen={setCartOpen} toggleCart={toggleCart}  closeCart={closeCart} />
                     : null
             }
         </>

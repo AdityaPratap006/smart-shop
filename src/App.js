@@ -18,15 +18,17 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
 import UserProfile from './pages/UserProfile/UserProfile';
+import Developers from './pages/Developers/Developers';
+import Checkout from './pages/Checkout/Checkout';
+
 // import Register from './pages/Register/Register';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
-import Checkout from './pages/Checkout/Checkout';
 import { setCartItems } from './redux/cart/cart.actions';
 import { selectCurrentRoute } from './redux/route/route.selectors';
 import { setCurrentRoute } from './redux/route/route.actions';
 // import { useHistory } from 'react-router-dom';
 
-const App = ({ currentRoute, setCurrentRoute, currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
+const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCartItems, registerUserName, registerUserProfilePic }) => {
 
 
 
@@ -133,6 +135,11 @@ const App = ({ currentRoute, setCurrentRoute, currentUser, isLoadingUser, setCur
               ) : <Redirect to="/" />
 
           )}
+        />
+        <Route
+          exact
+          path="/developers"
+          component={Developers}
         />
       </Switch>
     </div>

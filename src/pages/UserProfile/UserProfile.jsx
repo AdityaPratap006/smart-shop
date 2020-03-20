@@ -49,7 +49,7 @@ const UserProfile = ({ currentUser, setCurrentRoute }) => {
         return () => {
             subscribed = false;
         }
-    }, []);
+    }, [currentUser.userid, setCurrentRoute]);
 
     return currentUser ? (
         <div className={styles['profile-page']}>

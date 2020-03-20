@@ -1,0 +1,77 @@
+.card{
+
+    width: 24rem;
+    max-width: 90vw;
+    height: 25rem;
+    margin: 10px 0;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba($color: #000000, $alpha: 0.4);
+    overflow: hidden;
+
+    .header{
+        width: 100%;
+        height: 50%;
+        background: grey;
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+
+    }
+
+    .body{
+        width: 100%;
+        height: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+        span{
+            margin:5px 0;
+        }
+
+        .name{
+            width:90%;
+            font-size: 1.8rem;
+        }
+
+        .designation{
+            width: 90%;
+            font-size: 0.9rem;
+        }
+
+        .college{
+            width: 90%;
+            font-size: 1rem;
+        }
+    }
+
+    .footer{
+        width: 100%;
+        height: 10%;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        a{
+            .logo{
+                width:40px;
+                height: 40px;
+            }
+
+            :hover{
+                cursor: pointer;
+
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1100px){
+    .card{
+        height: 30rem;
+    }
+}

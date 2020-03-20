@@ -10,7 +10,7 @@ const Home = ({ setCurrentRoute }) => {
 
     useEffect(() => {
         setCurrentRoute('/home');
-    },[])
+    },[setCurrentRoute])
 
     return (
         <div className={styles['home']}>

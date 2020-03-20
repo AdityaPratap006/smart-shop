@@ -5,6 +5,10 @@ import googleLogo from '../../assets/google-logo.png';
 import facebookLogo from '../../assets/facebook-logo.png';
 
 import { signInWithGoogle, signInWithFacebook } from '../../firebase/firebase.utils';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { setIsLoadingUser } from '../../redux/user/user.actions';
 
 const renderLogo = (provider) => {
         
@@ -23,13 +27,13 @@ const renderLogo = (provider) => {
 }
 
 
-const signInMethod = ( provider, setError ) => {
+const signInMethod = ( provider, setError, history, setIsLoadingUser ) => {
 
     switch (provider) {
         case 'google':
             signInWithGoogle()
             .then(user => {
-                console.log('google', user);
+                console.log('google', user);     
                 setError({});
             })
             .catch(err => {
@@ -44,6 +48,7 @@ const signInMethod = ( provider, setError ) => {
             .then(user => {
                 console.log('facebook', user);
                 setError({});
+                 
             })
             .catch(err => {
                 console.log({error: err});
@@ -65,11 +70,12 @@ const signInMethod = ( provider, setError ) => {
 
 const OAuthButton = ({ authProvider, setError }) => {
 
-    
+    const history = useHistory();
 
     return (
-        <div className={styles['oauth-btn']} onClick={() => {signInMethod(authProvider, setError)}}>
+        <div className={styles['oauth-btn']} onClick={() => {signInMethod(authProvider, setError, history)}}>
             {
+                
                 renderLogo(authProvider)
             }
             <span>sign in with {authProvider}</span>
@@ -77,4 +83,15 @@ const OAuthButton = ({ authProvider, setError }) => {
     )
 }
 
-export default OAuthButton;
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setIsLoadingUser: (flag) => dispatch(setIsLoadingUser(flag)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(OAuthButton);

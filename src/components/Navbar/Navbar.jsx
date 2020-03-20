@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Navbar.module.scss';
 
 import { ReactComponent as BotLogo } from '../../assets/bot.svg';
@@ -10,17 +10,29 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+import DevelopersModal from '../DevelopersModal/DevelopersModal';
 
 const Navbar = ({ currentUser }) => {
 
+    const [modalOpen, setModalOpen] = useState(false);
 
-    const history = useHistory();
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    }
+
+    const closeModal = () => {
+        setModalOpen(false);
+    }
+
+    // const history = useHistory();
 
     return (
         <div className={styles['navbar']}>
             <div className={styles['bot-logo']} onClick={() =>{
-                history.push('/home');
+               
+               toggleModal();
+                 
             }}>
                 <BotLogo
                     style={{
@@ -29,6 +41,11 @@ const Navbar = ({ currentUser }) => {
                     }}
                 />
             </div>
+            {
+                modalOpen
+                ? <DevelopersModal closeModal={closeModal}/>
+                : null
+            }
             {
                 currentUser ? (
                     <>

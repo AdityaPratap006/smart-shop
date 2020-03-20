@@ -16,7 +16,7 @@ const Checkout = ({ cartItems, currentUser, setCurrentRoute }) => {
     useEffect(() => {
         setCurrentRoute('/checkout');
         window.scrollTo(0,'60px');  
-    },[])
+    },[setCurrentRoute])
 
     return (
         <div className={styles['checkout-page']}>

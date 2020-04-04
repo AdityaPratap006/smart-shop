@@ -3,7 +3,7 @@ import styles from './Developers.module.scss';
 
 import AdityaPic from '../../assets/Aditya.jpg';
 import AbhisekPic from '../../assets/Abhisek.png';
-import UditPic from '../../assets/Udit.jpg';
+import UditPic from '../../assets/Udit2.jpg';
 
 import DeveloperCard from '../../components/DeveloperCard/DeveloperCard';
 

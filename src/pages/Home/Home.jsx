@@ -10,13 +10,13 @@ const Home = ({ setCurrentRoute }) => {
 
     useEffect(() => {
         setCurrentRoute('/home');
-    },[setCurrentRoute])
+    },[setCurrentRoute]);
 
     return (
         <div className={styles['home']}>
             <ChatContainer/>
         </div>
-    )
+    );
 }
 
 const mapStateToProps = (state) => ({

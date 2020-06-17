@@ -1,3 +1,28 @@
+# SmartKart: The Smart Shop
+A chat-bot based web app which assists you in purchasing items online.
+The user will feel a real conversation is happening between him/her and the bot
+(It's a conversational web app).
+The chat-bot categorizes the products for you, (just like menu in a restaurant).
+
+### PWA
+This is progressive web app (PWA).
+The concept of PWA was introduced by Google.
+This means you can install this web app in your phone or desktop and it will feel like it's a native app.
+
+## To install PWA
+
+### The project is live [here](https://smartkart.netlify.app/).
+
+Visit the web app at the link provided above.
+Open browser settings.
+You will see an option to install smartkart or add smartkart to homescreen.
+Click on that option and the PWA will get installed on your device.
+
+## Note: This repo is for frontend only.
+# API SOURCE CODE IS [HERE](https://github.com/abhiseksinha23/smart-shop-api)
+
+# INSTRUCTIONS TO RUN LOCALLY
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

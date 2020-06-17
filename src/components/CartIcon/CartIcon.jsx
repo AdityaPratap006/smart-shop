@@ -6,8 +6,11 @@ import Cart from '../Cart/Cart';
 
 import { connect } from 'react-redux';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
+import PropTypes from 'prop-types';
 
-const CartIcon = ({ cartItems }) => {
+const CartIcon = ({ cartItems, ...otherProps }) => {
+
+    console.log({otherProps});
 
     const [cartOpen, setCartOpen] = useState(false);
 
@@ -60,3 +63,8 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(CartIcon);
+
+CartIcon.propTypes = {
+    cartItems: PropTypes.arrayOf(PropTypes.object),
+    otherProps: PropTypes.any,
+};

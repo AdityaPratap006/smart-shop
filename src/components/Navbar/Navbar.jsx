@@ -49,7 +49,7 @@ const Navbar = ({ currentUser }) => {
             {
                 currentUser ? (
                     <>
-                        <CartIcon />
+                        <CartIcon p1={{x: 1}} p2 = {2}/>
                         <UserProfileIcon profilePic={currentUser.profilePicUrl}/>
                     </>
                 ): null

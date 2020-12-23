@@ -18,7 +18,6 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
 import UserProfile from './pages/UserProfile/UserProfile';
-import Developers from './pages/Developers/Developers';
 import Checkout from './pages/Checkout/Checkout';
 
 // import Register from './pages/Register/Register';
@@ -135,11 +134,6 @@ const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCart
               ) : <Redirect to="/" />
 
           )}
-        />
-        <Route
-          exact
-          path="/developers"
-          component={Developers}
         />
       </Switch>
     </div>

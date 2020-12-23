@@ -136,7 +136,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps =  dispatch => ({
     setCartItems: cartItems => dispatch(setCartItems(cartItems)),
-   clearCartItemStartAsync: (userId, cartItems, item) => dispatch(clearCartItemStartAsync(userId, cartItems, item)) 
+    clearCartItemStartAsync: (userId, cartItems, item) => dispatch(clearCartItemStartAsync(userId, cartItems, item)) 
 })
 
 

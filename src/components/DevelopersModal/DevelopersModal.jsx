@@ -31,9 +31,9 @@ const DevelopersModal = ({closeModal}) => {
             <Link to={'/home'} className={styles['home-link']} onClick={closeModal}> 
                 Home
             </Link>
-            {/* <Link to={'/developers'} className={styles['link']} onClick={closeModal}>
+            <Link to={'/developers'} className={styles['link']} onClick={closeModal}>
                 Meet the people who created me!
-            </Link> */}
+            </Link>
         </div>
     )
 }

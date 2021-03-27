@@ -19,7 +19,7 @@ import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Checkout from './pages/Checkout/Checkout';
-
+import Developers from './pages/Developer/Developer';
 // import Register from './pages/Register/Register';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
 import { setCartItems } from './redux/cart/cart.actions';
@@ -36,8 +36,8 @@ const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCart
     // window.onunload = () => {
     //   setCurrentRoute('/home');
     // }
-    
-    window.scrollTo(0,0);
+
+    window.scrollTo(0, 0);
 
     let unsubscribeFromAuth = null;
 
@@ -66,7 +66,7 @@ const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCart
     }
   }, [registerUserName, registerUserProfilePic, setCurrentUser, setCartItems]);
 
-  
+
 
   return (
     <div className="App">
@@ -129,10 +129,17 @@ const App = ({ currentRoute, currentUser, isLoadingUser, setCurrentUser, setCart
             !isLoadingUser
               ? (
                 currentUser
-                  ? <Checkout/>
+                  ? <Checkout />
                   : <Redirect to="/sign-in" />
               ) : <Redirect to="/" />
 
+          )}
+        />
+        <Route
+          exact
+          path="/developers"
+          render={() => (
+            <Developers />
           )}
         />
       </Switch>

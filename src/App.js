@@ -19,7 +19,7 @@ import Login from './pages/Login/Login';
 import Loader from './pages/Loader/Loader';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Checkout from './pages/Checkout/Checkout';
-import Developers from './pages/Developer/Developer';
+import Developers from './pages/Developers/Developers';
 // import Register from './pages/Register/Register';
 import { selectRegisterUserName, selectRegisterUserProfilePic } from './redux/registerUser/registerUser.selectors';
 import { setCartItems } from './redux/cart/cart.actions';
